@@ -1,16 +1,14 @@
 ---
 layout: page
 title: About me
-subtitle: Why you'd want to go on a date with me
+subtitle: The whole story...
 ---
 
-My name is Inigo Montoya. I have the following qualities:
-
-- I rock a great mustache
-- I'm extremely loyal to my family
+Hi! My name is Renan Carvalho. I'm Brazilian, 29 years old, and a Data Science enthusiast. Right ahead I give you a briefing.
 
 What else do you need?
 
-### my history
+### My History
 
-To be honest, I'm having some trouble remembering right now, so why don't you just watch [my movie](https://en.wikipedia.org/wiki/The_Princess_Bride_%28film%29) and it will answer **all** your questions.
+I'm graduated in [Biosystems Engineering](http://www.fzea.usp.br/en/?page_id=1930), and have a Masters in [Energy Technology (Solar)](https://www.teses.usp.br/teses/disponiveis/106/106134/tde-30062020-150746/en.php). 
+For the last couple months, I've been studying Data Science (which is **awesoome!**), and got really into it. So this is why I made this portfolio website, and this is why you should check out my [Git](https://github.com/renan2scarvalho?tab=repositories)!
