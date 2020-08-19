@@ -1,7 +1,7 @@
 ---
 layout: page
 title: About me
-subtitle: The whole story...
+subtitle: The whole story... or not so much!
 ---
 
 Hi! My name is Renan Carvalho. I'm Brazilian, 29 years old, and a Data Science enthusiast. Right ahead I give you a briefing.
