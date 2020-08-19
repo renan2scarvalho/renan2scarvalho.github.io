@@ -39,12 +39,10 @@ round-avatar: true
 # If you don't want to show a link to an RSS feed, set rss to "false".
 social-network-links:
   email: "renan2.scarvalho@gmail.com"
-  facebook: https://www.facebook.com/renan.carvalho.9803
+  facebook: renan.carvalho.9803
   github: renan2scarvalho
-  linkedin: https://www.linkedin.com/in/renan-souza-carvalho/
-  rss: true
+  linkedin: renan-souza-carvalho/
 #  reddit: yourname
-#  linkedin: daattali
 #  xing: yourname
 #  stackoverflow: "3943160/daattali"
 #  snapchat: deanat78
