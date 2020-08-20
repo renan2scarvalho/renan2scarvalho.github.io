@@ -3,8 +3,6 @@
 # Name of website
 title: Renan Carvalho
 
-header: Welcome!
-
 # Short description of your site
 description: This is my personal porftolio website
 
@@ -22,14 +20,14 @@ navbar-links:
 
 # Image to show in the navigation bar - works best with a square image
 # Remove this parameter if you don't want an image in the navbar
-avatar: "https://scontent.frao3-1.fna.fbcdn.net/v/t1.0-9/14344106_1120092868080428_6192106426200997845_n.jpg?_nc_cat=109&_nc_sid=85a577&_nc_ohc=aPvoB01BxJEAX9emO_z&_nc_ht=scontent.frao3-1.fna&oh=9ed806564eeb96fde2cbe5ac76fbd0e5&oe=5F651A2D"
+avatar: "https://lh3.googleusercontent.com/PWXu8WzgFY_9PKSUWb5GA8Mo584RwKJ4US9SHNmqOk5ONBzkBqiqGautsPdC4RFTfWB23Sd3_pXiPZre0XF-E8S4n48M86OAF0FbAmHP35jRdDcfe9oktCFRaFEy5dlC8gPasEsXDbnIK039_ILjlY4PmmWwE76tHFFQOucJDzNjkgyi7XC9Tgp9RmZMHCx-cItPRBdPXCXJ6Rnq-7oADXEFSTMiODxbo4JDHke19XH-Aa24SS5cwX928U9ZogKUuF6rPfN0lh9aFtu3s0LTZq7kUd3hAaDUXgOKk1Zr-yDHzUBmgcLponLmUVFUwwFuAfkDW_DFY6mg9B3rHnxfJqQB5bViY-rPdMVMDT1eHsY96x9ribBhpRoH2uDDRFcnwsq161kUNWHNUlJNlZcVeMmhhaGtQhYMjKarsHV6HD7PatnoBX21uj_pXGGy4EeSycS6WEuNHCmy3Sdf8KdnYEmwKF4V47Kh6MdIAQ4oObGzgoZb9X4vflU8JlYvVt5hto0hSvK-Anhxc11FTxVCng1sMfOF5f-mXO9sqfWm4y4vmpt4Cvv06-6Rp8JjiR8tC1cywi-efLLYSbe9xmO9z6I-D4UFUN5pJLblptGIsohPYCvKwEpbXe1ydhlmyt6EhZmrQQ7VgI8g5ZO2cicSEC-NuYZwAUYejwZMSDnBDHAHjcdrOQXKvUTJIoVC=w216-h329-no?authuser=0"
 
 # By default, the image is cut into a circle. You can disable this behaviour by setting 'round-avatar: false'
 round-avatar: true
 
 # If you want to have an image logo in the top-left corner instead of the title text,
 # then specify the following parameter
-#title-img: "https://scontent.frao3-1.fna.fbcdn.net/v/t1.0-9/14344106_1120092868080428_6192106426200997845_n.jpg?_nc_cat=109&_nc_sid=85a577&_nc_ohc=aPvoB01BxJEAX9emO_z&_nc_ht=scontent.frao3-1.fna&oh=9ed806564eeb96fde2cbe5ac76fbd0e5&oe=5F651A2D"
+# title_img: 
 
 # --- Footer options --- #
 
