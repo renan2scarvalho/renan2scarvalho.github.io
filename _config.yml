@@ -1,11 +1,16 @@
+--- 
+title: Hello!
+subtitle: This is my personal portfolio website!
+---
+
 # --- Basic options --- #
 
 # Name of website
 title: Welcome!
-subtitle: This is my personal porftolio website
+# subtitle: 
 
 # Short description of your site
-# description: 
+# description: This is my personal porftolio website
 
 # Your name to show in the footer
 author: Renan Carvalho
