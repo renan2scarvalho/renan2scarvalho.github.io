@@ -1,12 +1,7 @@
---- 
-title: Hello!
-subtitle: This is my personal portfolio website!
----
-
 # --- Basic options --- #
 
 # Name of website
-title: Welcome!
+title: Renan Carvalho
 # subtitle: 
 
 # Short description of your site
@@ -35,8 +30,7 @@ round-avatar: true
 
 # If you want to have an image logo in the top-left corner instead of the title text,
 # then specify the following parameter
-# title-img: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
-# round-title-img: true
+#title-img: "https://scontent.frao3-1.fna.fbcdn.net/v/t1.0-9/14344106_1120092868080428_6192106426200997845_n.jpg?_nc_cat=109&_nc_sid=85a577&_nc_ohc=aPvoB01BxJEAX9emO_z&_nc_ht=scontent.frao3-1.fna&oh=9ed806564eeb96fde2cbe5ac76fbd0e5&oe=5F651A2D"
 
 # --- Footer options --- #
 
