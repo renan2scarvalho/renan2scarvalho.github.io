@@ -2,10 +2,11 @@
 
 # Name of website
 title: Renan Carvalho
-# subtitle: 
+
+header: Welcome!
 
 # Short description of your site
-# description: This is my personal porftolio website
+description: This is my personal porftolio website
 
 # Your name to show in the footer
 author: Renan Carvalho
