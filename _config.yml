@@ -22,7 +22,7 @@ navbar-links:
 
 # Image to show in the navigation bar - works best with a square image
 # Remove this parameter if you don't want an image in the navbar
-avatar: "/assets/img/avatar-icon.png"
+avatar: "https://scontent.frao3-1.fna.fbcdn.net/v/t1.0-9/14344106_1120092868080428_6192106426200997845_n.jpg?_nc_cat=109&_nc_sid=85a577&_nc_ohc=aPvoB01BxJEAX9emO_z&_nc_ht=scontent.frao3-1.fna&oh=9ed806564eeb96fde2cbe5ac76fbd0e5&oe=5F651A2D"
 
 # By default, the image is cut into a circle. You can disable this behaviour by setting 'round-avatar: false'
 round-avatar: true
