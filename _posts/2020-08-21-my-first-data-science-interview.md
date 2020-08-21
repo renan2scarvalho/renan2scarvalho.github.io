@@ -44,7 +44,7 @@ The technical part of the interview was composed by 5 questions, which approache
 
 ![image](https://user-images.githubusercontent.com/63553829/90934597-f0769b00-e3d7-11ea-9c50-21d1e23130b6.png)
 
-{% highlight javascript lineos %}
+{% highlight javascript linenos %}
 stores.shape, customer.shape, product.shape, transactions.shape
 ((10, 3), (55, 3), (20, 4), (200, 8))
 {% endhighlight %}
@@ -65,7 +65,7 @@ Quite easy right?! I put 5 duplicates specially for this exercise. So let's go t
 2. The second question was to create a table "transaction_cube" merging all tables. So this, although simple, gives some work. Here we use pandas *merge*, which has by default an inner join (if you don't recall what join is, check [here](https://en.wikipedia.org/wiki/Join_(SQL))) to merge the fact table transactions
 SKs and all other PKs of the dimension tables. Here's the code:
 
-{% highlight javascript lineos %}
+{% highlight javascript linenos %}
 transactions_stores = transactions.merge(stores, on='store_id') 
 transactions_customer = transactions_stores.merge(customer, on='customer_id') 
 transaction_cube = transactions_customer.merge(product, on='product_id')
