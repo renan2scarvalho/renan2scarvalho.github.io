@@ -34,7 +34,7 @@ The structure of this dimensional model is as follows:
 
 ## Now hands-on!
 
-The technical part of the interview was composed by 5 questions, which approached mainly data quick queries to generate quick insights. In this case, I opted to use Python and the Pandas library. Ahead I show the first five lines of each dataframe, as well as its shape.
+The technical part of the interview was composed by 5 questions (which I adapted here), and approached mainly data quick queries to generate quick insights. In this case, I opted to use Python and the Pandas library. Ahead I show the first five lines of each dataframe, as well as its shape.
 
 ![transaction](https://user-images.githubusercontent.com/63553829/90934480-c0c79300-e3d7-11ea-8fc7-6376dea5d61c.png)
 
@@ -75,5 +75,47 @@ transaction_cube.shape
 ```
 
 ![cube](https://user-images.githubusercontent.com/63553829/90935672-1dc44880-e3da-11ea-8af9-a5c304f9ac8f.png)
+
+
+3. The thrid question was to create a table "customer_ids" with customers that existed in the "transactions" table, but not in the "customer" table. So we again use pandas *merge* with an indicator *i* and an *outer* join. Here this results in a table with *both* for inner keys, and *left_only* for keys present only in "transaction" table, then we use this indicator as a selector, and drop the indicator column afterwards. Here's the code:
+
+```javascript
+customer_ids = transactions.merge(customer, indicator='i', how='outer').query('i == "left_only"').drop('i',axis=1)
+```
+
+![cust_ids](https://user-images.githubusercontent.com/63553829/90936928-aa700600-e3dc-11ea-8a4d-c14ebbe10a97.png)
+
+
+4. The fourth question consisted in creating the table "customer_summary" with the following variables: customer_id, department, tota_sales, total_quantity, average_ticket, last_visit. So for that, we use pandas *groupby* to group by *customer_id* and apply the necessary measure for each of the variables e.g. count(), sum() or mean(). Here is necessary to transform the *date_id* to pandas *datetime*. The code is as follows:
+
+```javascript
+transaction_cube['date_id'] = pd.to_datetime(transaction_cube['date_id']) # date_id as datetime
+customer_id = sorted(transaction_cube['customer_id'].unique())
+customer_summary = pd.DataFrame(customer_id, columns=['customer_id'])
+customer_summary['department'] = transaction_cube.groupby(['customer_id'])['department'].count().to_list()
+customer_summary['total_sales'] = transaction_cube.groupby(['customer_id'])['sales'].sum().to_list()
+customer_summary['total_quantity'] = transaction_cube.groupby(['customer_id'])['quantity'].sum().to_list()
+customer_summary['average_ticket'] = transaction_cube.groupby(['customer_id'])['sales'].mean().to_list()
+customer_summary['last_visit'] = transaction_cube.groupby(['customer_id'])['date_id'].max().to_list()
+customer_summary.set_index('customer_id', inplace=True)
+```
+
+![cust_summ](https://user-images.githubusercontent.com/63553829/90937527-5154a200-e3dd-11ea-8b3c-dddbb734cc80.png)
+
+
+5. The fifth and last question was to calculate the table "customer_metrics" with the following variables: customer_id, department, total_sales, total_quantity, product_name (most sold product per customer), and price_median. Here some variables were already calcualted, so we can use table "customer_summary", as we have been doing in a cascade since the beginning. 
+
+```javascript
+customer_metrics = customer_summary.copy()
+gb = transaction_cube.groupby(['customer_id','product_name']).count(); gb.reset_index(inplace=True)
+gb = gb.sort_values('store_id', ascending=False).groupby(['customer_id']).first()
+customer_metrics['product_name'] = gb['product_name']
+customer_metrics['price_median'] = transaction_cube.groupby(['customer_id'])['unit_price'].median()
+```
+
+![cust_met](https://user-images.githubusercontent.com/63553829/90938008-71d12c00-e3de-11ea-87da-0969817b99ab.png)
+
+
+
 
 
