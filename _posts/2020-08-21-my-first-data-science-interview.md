@@ -16,7 +16,7 @@ So let's begin!
 ## But first things first...
 
 Firstly, let me preset you the dimensional model, which consists of 4 tables. It's can be noticed that, in order to ease the model in the interview,
-data dimension was excluded. The tables with columns are:
+data dimension was excluded (and added in "transaction" table as FK). The tables with columns are:
 
 | Transaction | Customer | Product | Store |
 |:----|:----|:----|:----|
@@ -31,7 +31,7 @@ data dimension was excluded. The tables with columns are:
 
 The structure of this dimensional model is as follows:
 
-![dim_mdl](https://user-images.githubusercontent.com/63553829/90959641-9aa30100-e472-11ea-9aa2-dde8b20f55e8.png)
+![dim_mdl](https://user-images.githubusercontent.com/63553829/90960048-4c433180-e475-11ea-84be-13c8b324e448.png)
 
 ## Now hands-on!
 
