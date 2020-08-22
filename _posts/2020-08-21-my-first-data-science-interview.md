@@ -35,7 +35,7 @@ The structure of this dimensional model is as follows:
 
 ## Now hands-on!
 
-The technical part of the interview was composed by 5 questions (which I adapted here), and approached mainly data quick queries to generate quick insights. In this case, I opted to use Python and the Pandas library. Ahead I show the first five lines of each dataframe, as well as its shape.
+The technical part of the interview was composed by 5 questions (which I adapted here), and approached mainly data quick queries to generate quick insights. In this case, I opted to use Python and the Pandas library. I show the first five lines of each dataframe below, as well as its shape.
 
 ![transaction](https://user-images.githubusercontent.com/63553829/90934480-c0c79300-e3d7-11ea-8fc7-6376dea5d61c.png)
 
@@ -64,7 +64,7 @@ customer.shape
 Quite easy right?! I put 5 duplicates specially for this exercise. So let's go to the next
 
 
-2 - The second question was to create a table "transaction_cube" merging all tables. So this, although simple, gives some work. Here we use pandas *merge*, which has by default an inner join (if you don't recall what join is, check [here](https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html) to merge the fact table transactions
+2 - The second question was to create a table "transaction_cube" merging all tables. So this, although simple, can be tricky. Here we use pandas *merge*, which has by default an inner join (if you don't recall what join is, check [here](https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html) to merge the fact table transactions
 SKs and all other PKs of the dimension tables. Here's the code:
 
 ```javasc
@@ -87,7 +87,7 @@ customer_ids = transactions.merge(customer, indicator='i', how='outer').query('i
 ![cust_ids](https://user-images.githubusercontent.com/63553829/90936928-aa700600-e3dc-11ea-8a4d-c14ebbe10a97.png)
 
 
-4 - The fourth question consisted in creating the table "customer_summary" with the following variables: customer_id, department, tota_sales, total_quantity, average_ticket, last_visit. So for that, we use pandas *groupby* to group by *customer_id* and apply the necessary measure for each of the variables e.g. count(), sum() or mean(). Here is necessary to transform the *date_id* to pandas *datetime*. The code is as follows:
+4 - The fourth question consisted in creating the table "customer_summary" with the following variables: customer_id, department, total_sales, total_quantity, average_ticket, last_visit. So for that, we use pandas *groupby* to group by *customer_id* and apply the necessary measure for each of the variables e.g. count(), sum() or mean(). Here is necessary to transform the *date_id* to pandas *datetime*. The code is as follows:
 
 ```javascript
 transaction_cube['date_id'] = pd.to_datetime(transaction_cube['date_id']) # date_id as datetime
@@ -104,7 +104,7 @@ customer_summary.set_index('customer_id', inplace=True)
 ![cust_summ](https://user-images.githubusercontent.com/63553829/90937527-5154a200-e3dd-11ea-8b3c-dddbb734cc80.png)
 
 
-5 - The fifth and last question was to calculate the table "customer_metrics" with the following variables: customer_id, department, total_sales, total_quantity, product_name (most sold product per customer), and price_median. Here some variables were already calcualted, so we can use table "customer_summary", as we have been doing in a cascade since the beginning. For the *product_name*, I had to first *groupby* and *count()*, *reset_index*, *sort_values* by *store_id* (in this case, as result from the previous step, the variable could be any), *groupby* again, and select the *first()* row. Here is the code:
+5 - The fifth and last question was to calculate the table "customer_metrics" with the following variables: customer_id, department, total_sales, total_quantity, product_name (most sold product per customer), and price_median. Here some variables were already calculated, so we can use table "customer_summary", as we have been doing in a cascade since the beginning. For the *product_name*, I had to first *groupby* and *count()*, *reset_index*, *sort_values* by *store_id* (in this case, as result from the previous step, the variable could be any), *groupby* again, and select the *first()* row. Here is the code:
 
 ```javascript
 customer_metrics = customer_summary.copy()
