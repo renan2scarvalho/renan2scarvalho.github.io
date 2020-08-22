@@ -8,14 +8,14 @@ tags: [data science, python, pandas]
 comments: true
 ---
 
-This is my first post ever, and I'll start it talking about my first Data Science job interview. It happened a couple months ago, and it didn't went 
+This is my first post ever, and I'll start it talking about my first Data Science job interview. It happened a couple months ago, and it didn't go 
 so well, unfortunately. In this post I approach some questions that happened during the interview, using ficticious samples created randomly by 
 myself in order to ease the understanding, even though the questions are in majority simple.
 So let's begin!
 
 ## But first things first...
 
-Firstly, let me preset you the dimensional model, which consists of 4 tables. It's can be noticed that, in order to ease the model in the interview,
+Let me present you the dimensional model, which consists of 4 tables. It can be noticed that, in order to ease the model in the interview,
 data dimension was excluded (and added in "transaction" table as FK). The tables with columns are:
 
 | Transaction | Customer | Product | Store |
@@ -64,7 +64,7 @@ customer.shape
 Quite easy right?! I put 5 duplicates specially for this exercise. So let's go to the next
 
 
-2 - The second question was to create a table "transaction_cube" merging all tables. So this, although simple, gives some work. Here we use pandas *merge*, which has by default an inner join (if you don't recall what join is, check [here](https://en.wikipedia.org/wiki/Join_(SQL))) to merge the fact table transactions
+2 - The second question was to create a table "transaction_cube" merging all tables. So this, although simple, gives some work. Here we use pandas *merge*, which has by default an inner join (if you don't recall what join is, check [here](https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html) to merge the fact table transactions
 SKs and all other PKs of the dimension tables. Here's the code:
 
 ```javasc
@@ -78,7 +78,7 @@ transaction_cube.shape
 ![cube](https://user-images.githubusercontent.com/63553829/90935672-1dc44880-e3da-11ea-8af9-a5c304f9ac8f.png)
 
 
-3 - The thrid question was to create a table "customer_ids" with customers that existed in the "transactions" table, but not in the "customer" table. So we again use pandas *merge* with an indicator *i* and an *outer* join. Here this results in a table with *both* for inner keys, and *left_only* for keys present only in "transaction" table, then we use this indicator as a selector, and drop the indicator column afterwards. Here's the code:
+3 - The thrird question was to create a table "customer_ids" with customers that existed in the "transactions" table, but not in the "customer" table. So we again use pandas *merge* with an indicator *i* and an *outer* join. Here this results in a table with *both* for inner keys, and *left_only* for keys present only in "transaction" table, then we use this indicator as a selector, and drop the indicator column afterwards. Here's the code:
 
 ```javascript
 customer_ids = transactions.merge(customer, indicator='i', how='outer').query('i == "left_only"').drop('i',axis=1)
