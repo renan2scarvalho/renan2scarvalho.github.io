@@ -13,12 +13,12 @@ so well, unfortunately. In this post I approach some questions that happened dur
 myself in order to ease the understanding, even though the questions are in majority simple.
 So let's begin!
 
-## First things first
+## But first things first...
 
-Firstly, let me preset you the dimensional model, which consists of 4 tables. It's can be noticed that, in order to ease the mode,
+Firstly, let me preset you the dimensional model, which consists of 4 tables. It's can be noticed that, in order to ease the model in the interview,
 data dimension was excluded. The tables with columns are:
 
-| Transactions | Customers | Products | Stores |
+| Transaction | Customer | Product | Store |
 |:----|:----|:----|:----|
 | ticket_id | customer_id | product_id | store_id |
 | customer_id | age | product_name | store_name |
@@ -31,6 +31,7 @@ data dimension was excluded. The tables with columns are:
 
 The structure of this dimensional model is as follows:
 
+![dim_mdl](https://user-images.githubusercontent.com/63553829/90959641-9aa30100-e472-11ea-9aa2-dde8b20f55e8.png)
 
 ## Now hands-on!
 
