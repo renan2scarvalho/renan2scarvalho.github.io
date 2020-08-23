@@ -78,7 +78,7 @@ transaction_cube.shape
 ![cube](https://user-images.githubusercontent.com/63553829/90935672-1dc44880-e3da-11ea-8af9-a5c304f9ac8f.png){: .mx-auto.d-block :}
 
 
-3 - The thrird question was to create a table "customer_ids" with customers that existed in the "transactions" table, but not in the "customer" table. So we again use pandas *merge* with an indicator *i* and an *outer* join. Here this results in a table with *both* for inner keys, and *left_only* for keys present only in "transaction" table, then we use this indicator as a selector, and drop the indicator column afterwards. Here's the code:
+3 - The third question was to create a table "customer_ids" with customers that existed in the "transactions" table, but not in the "customer" table. So we again use pandas *merge* with an indicator *i* and an *outer* join. Here this results in a table with *both* for inner keys, and *left_only* for keys present only in "transaction" table, then we use this indicator as a selector, and drop the indicator column afterwards. Here's the code:
 
 ```javascript
 customer_ids = transactions.merge(customer, indicator='i', how='outer').query('i == "left_only"').drop('i',axis=1)
@@ -122,12 +122,12 @@ customer_metrics['price_median'] = transaction_cube.groupby(['customer_id'])['un
 Extending the context of the interview, let's quickly apply some machine learning in this sample to cluster the customers variables using the following features:
 
 - monetary -> volume of sales per customer
-- frequency -> how frequent are the customers
 - recency -> are the customer a recent or old buyer
+- frequency -> how frequent are the customers
 
 ![hist](https://user-images.githubusercontent.com/63553829/90985027-694c3300-e54f-11ea-910f-7ce2f73f393d.png){: .mx-auto.d-block :}
 
-For this, we'll use the *[K-means algorithm](https://en.wikipedia.org/wiki/K-means_clustering)*. It basically consists in partitionin *n* observations into *k* clusters in which each observation belongs to the cluster with the nearest mean, i.e. cluster centers centroid, minimizing the loss functino within-cluster variance, in this case the squared Eucliden distance. But before this, let's quicly apply the *[Hopkins statistic](https://en.wikipedia.org/wiki/Hopkins_statistic)*, which basically measures the cluster tendency, where values close to 1 indicates that the data is highly clustered. In our case, the *Hopkins statistic* resulted in *0.72*, which means that our data can be clustered relatively well.
+For this, we'll use the *[K-means algorithm](https://en.wikipedia.org/wiki/K-means_clustering)*. It basically consists in partitioning *n* observations into *k* clusters in which each observation belongs to the cluster with the nearest mean, i.e. cluster centers centroid, minimizing the loss function within-cluster variance, in this case the squared Eucliden distance. But before this, let's quicly apply the *[Hopkins statistic](https://en.wikipedia.org/wiki/Hopkins_statistic)*, which basically measures the cluster tendency, where values close to 1 indicates that the data is highly clustered. In our case, the *Hopkins statistic* resulted in *0.72*, which means that our data can be clustered relatively well.
 The ML model isn't the aim of this post, so I'll pass through the pipeline quickly, with a few code lines. We begin it applying a [Standard Scaler](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html) as a preprocessing, which works the mean and scaling to unit variance, and then applied the K-means algorithm with the number of clusters *k = 3* arbitrarily chosen (here we should use some metrics e.g. elbow curve to find *k*, but as pointed before, this analysis isn't the aim of this post).
 
 ```javascript
@@ -159,7 +159,7 @@ From these bloxplots, some assumptions can be made:
 
 - **Cluster 0:** customers that have a large range of average ticket (close to 0 up to 800), not so frequent but old buyers, and compose the majority of customers (22 of 46 = app. 50%);
 - **Cluster 1:** customers with average ticket ranging from 100 up to 500, highly frequent and mostly old buyers (13 of 46 = app. 30%);
-- **Cluster 2:** customers with a higher average ticket value i.e. more expensive products, but no so frequent and recent buyers (11 of 46 = app. 20%);
+- **Cluster 2:** customers with a higher average ticket value i.e. more expensive products, but not so frequent and recent buyers (11 of 46 = app. 20%);
 
 This analysis are quite interesting. From this quick inspection one could elaborate a marketing campaign focused on each Cluster, adding some other features e.g. age and gender, which can increase the possibility of success. For example, customers from Cluster 0 and Cluster 1 are old buyers, so they don't need some intense marketing camping, since they are already frequent buyers and, in case of Cluster 0 customers, with a high volume. Cluster 2, however, need a more intense and specific campaign, since they are relatively recent buyers with a high average ticket, which can mean they buy specific and expensive products. 
 This all looks so beatufil and simple, but *caveat emptor!*, these couple last lines are assumptions, and should be analyzed with a higher scrutiny.
