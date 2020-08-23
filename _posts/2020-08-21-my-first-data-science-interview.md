@@ -3,6 +3,8 @@ layout: post
 title: My first Data Science Interview
 subtitle: Working with Python and Pandas
 thumbnail-img: https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1024px-Python-logo-notext.svg.png
+#cover-img: 
+#share-img: 
 gh-repo: renan2scarvalho/First_DS_Interview
 gh-badge: [star, fork, follow]
 tags: [data science, python, pandas]
