@@ -52,8 +52,14 @@ As a general rule of thumb, we can consider that:
 Calculating the skewness for this data by using the Fischer-Perarson standardized moment coefficient [[2]](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.skew.html),[[3]](https://medium.com/@ODSC/transforming-skewed-data-for-machine-learning-90e6cc364b0), we see that only the predictor *"imdb_score"* is moderately skewed, which leaves us with a lot of work from now on!
 
 ```javascript
-df.shape
-(3756, 16)
+skewness = df.skew().sort_values(ascending=False)
+skewness = pd.DataFrame(skewness, columns=['skewness'])
 ```
 
-![sk](https://user-images.githubusercontent.com/63553829/91346892-dfeb6980-e7b7-11ea-9775-0b9c8c52dfbe.png)
+![sk](https://user-images.githubusercontent.com/63553829/91346892-dfeb6980-e7b7-11ea-9775-0b9c8c52dfbe.png){: .mx-auto.d-block :}
+
+We can see the skewness from the histograms ahead for four predictors ("budget", "duration", "imdb_score", "title_year"), which are extremeley left
+skewed, left skewed, moderately skewed, and  right skewed, respectively:
+
+![hist](https://user-images.githubusercontent.com/63553829/91347239-5ee0a200-e7b8-11ea-87c5-04cd529c779c.png){: .mx-auto.d-block :}
+
