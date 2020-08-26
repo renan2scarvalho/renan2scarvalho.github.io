@@ -196,4 +196,66 @@ Use if:
 Since we do not have any kind of data as this here, we'll not approach *arcsine transformation*.
 
 
+## Other transformations for skewed data
+Now were we'll apply some more complex **power transformations** to create monotonic transformations of data using power functions, aiming to make date more *normal distribution-like* [[6]](https://en.wikipedia.org/wiki/Power_transform).
 
+The power transformations is definde as a **continuously varying function**, with respect to a parameter λ, in a piece-wise function form that makes it continuous at the point of singularity (i.e. λ=0).
+
+
+### 7. Box-Cox transformation
+The Box-Cox procedure uses maximum likelihood estimation to estimate a transformation parameter λ in the equation [[7]](https://www.ime.usp.br/~abe/lista/pdfm9cJKUmFZp.pdf),[[8]](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.boxcox.html):
+
+![eq](https://user-images.githubusercontent.com/63553829/91365133-d02f4d80-e7d6-11ea-9f79-910b77283dcf.png){: .max-auto.d-block :}
+
+```javascript
+from scipy.stats import boxcox as bc
+
+bc_df = df.replace(0, np.nan).dropna(axis=1) # only values > 0
+skew_bc = pd.DataFrame(bc_df.skew(), columns=['skewness'])
+
+boxcox = []
+for i in range(0, bc_df.shape[1]): 
+    boxcox.append(bc(bc_df.iloc[:,i])[1])
+
+skew_bc['box-cox'] = boxcox
+skew_bc
+```
+
+As we can see, skewness reduced a lot for most of the predictors. However, some variables cannot be transformed to normal distributed-like, for several different reasons (e.g. imbalanced categorical classes).
+
+![bc](https://user-images.githubusercontent.com/63553829/91365396-58155780-e7d7-11ea-97fb-15b77a9b2dbc.png){: .mx-auto.d-block :}
+
+It is importante to notice, though, that the Box-Cox procedure can only be applied to data that is **strictly positive!** To overcome this issue, the Yeo-Johnson procedure is addressed ahead.
+
+
+### 8. Yeo-Johnson transformation
+Yeo-Johnson transformation comes to **address the non-zero and non-negative values** issue of the Box-Cox transformation. Works almost the same way, but when estimating the transformation parameter, it founds the value of λ that minimizes the [Kullback-Leibler distance](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence) between the normal and transformed distribution [[7]](https://www.ime.usp.br/~abe/lista/pdfm9cJKUmFZp.pdf), [[9]](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.yeojohnson.html):
+
+![eq2](https://user-images.githubusercontent.com/63553829/91365495-a7f41e80-e7d7-11ea-826a-00aaefe196f5.png){: .mx-auto.d-block :}
+
+```javascript
+from scipy.stats import yeojohnson as yeo
+
+skew_yeo = pd.DataFrame(df.skew(), columns=['no transformation'])
+
+yeo_johnson = []
+for i in range(0, df.shape[1]): 
+    yeo_johnson.append(yeo(df.iloc[:,i])[1])
+
+skew_yeo['yeo-johnson'] = yeo_johnson
+skew_yeo
+```
+
+Here, the results were *similar* to the Box-Cox transformation. Nevertheless, Yeo-Johnson transformation has the big advantage of approach all possible values, in contrast to Box-Cox.
+
+![yeo](https://user-images.githubusercontent.com/63553829/91365602-e8ec3300-e7d7-11ea-9733-eedec1690f03.png){: .mx-auto.d-block :}
+
+
+### Highlights
+As we can see, for most of the cases the transformations had a fine result, with Yeo-Johnson transformation being slightly better than Box-Cox for the same keys. It's important to notice that **both transformations are unsupervised**, and while a transformation might **improve** the distribution, it has **no guarantee** that will **improve the model**.
+
+```javascript
+comparison = skew_bc.reset_index().merge(skew_yeo, how='left').set_index('index')
+```
+
+![comp](https://user-images.githubusercontent.com/63553829/91365767-4c766080-e7d8-11ea-8af7-7d157c7b093d.png)
