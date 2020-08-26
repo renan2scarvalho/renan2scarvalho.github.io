@@ -205,7 +205,7 @@ The power transformations is definde as a **continuously varying function**, wit
 ### 7. Box-Cox transformation
 The Box-Cox procedure uses maximum likelihood estimation to estimate a transformation parameter λ in the equation [[7]](https://www.ime.usp.br/~abe/lista/pdfm9cJKUmFZp.pdf),[[8]](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.boxcox.html):
 
-![eq](https://user-images.githubusercontent.com/63553829/91365133-d02f4d80-e7d6-11ea-9f79-910b77283dcf.png){: .max-auto.d-block :}
+![eq](https://user-images.githubusercontent.com/63553829/91365133-d02f4d80-e7d6-11ea-9f79-910b77283dcf.png){: .mx-auto.d-block :}
 
 ```javascript
 from scipy.stats import boxcox as bc
