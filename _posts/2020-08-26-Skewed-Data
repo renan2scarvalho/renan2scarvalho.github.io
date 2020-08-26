@@ -41,4 +41,4 @@ cleansing), and select numerical variables. The image ahead shows the dataframe 
 df.shape
 (3756, 16)
 ```
-![df](https://user-images.githubusercontent.com/63553829/91345851-64d58380-e7b6-11ea-9670-ecb355ed8f80.png)
+![df](https://user-images.githubusercontent.com/63553829/91345851-64d58380-e7b6-11ea-9670-ecb355ed8f80.png){: .mx-auto.d-block :}
