@@ -11,8 +11,6 @@ tags: [data science, python, data cleansing]
 comments: true
 ---
 
-## Small intro
-
 Real-world data can, and usually is, *messy*. **Skewed distribution** happens all the time, hence we need to work with this prior to modeling. A distribution
 that is symmetric or nearly so is often easier to handle and interpret than a skewed distribution. Therefore, **transformations** are applied for many reasons, 
 such as **reduce skewness**.
