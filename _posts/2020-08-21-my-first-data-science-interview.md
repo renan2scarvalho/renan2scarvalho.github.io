@@ -53,8 +53,9 @@ stores.shape, customer.shape, product.shape, transactions.shape
 ((10, 3), (55, 3), (20, 4), (200, 8))
 ```
 
-So let's get to the **questions**. 
-1 - The first question consisted in sorting (ascending) the table "customer" by customer_id and removing duplicates. This is a simple question, where we apply pandas *sort_values* with feature to sort by, and apply the *remove_duplicates* with *ignote_index* so the indexes goes from 0 to n-1. The code is:
+So let's get to the **questions**.
+
+**1 -** The first question consisted in sorting (ascending) the table "customer" by customer_id and removing duplicates. This is a simple question, where we apply pandas *sort_values* with feature to sort by, and apply the *remove_duplicates* with *ignote_index* so the indexes goes from 0 to n-1. The code is:
 
 ```javascript
 customer = customer.sort_values(by='customer_id', ascending=True).drop_duplicates(ignore_index=True)
@@ -67,7 +68,7 @@ customer.shape
 Quite easy right?! I put 5 duplicates specially for this exercise. So let's go to the next
 
 
-2 - The second question was to create a table "transaction_cube" merging all tables. So this, although simple, can be tricky. Here we use pandas *merge*, which has by default an inner join (if you don't recall what join is, check [here](https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html) to merge the fact table transactions
+**2 -** The second question was to create a table "transaction_cube" merging all tables. So this, although simple, can be tricky. Here we use pandas *merge*, which has by default an inner join (if you don't recall what join is, check [here](https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html) to merge the fact table transactions
 SKs and all other PKs of the dimension tables. Here's the code:
 
 ```javasc
@@ -81,7 +82,7 @@ transaction_cube.shape
 ![cube](https://user-images.githubusercontent.com/63553829/90935672-1dc44880-e3da-11ea-8af9-a5c304f9ac8f.png){: .mx-auto.d-block :}
 
 
-3 - The third question was to create a table "customer_ids" with customers that existed in the "transactions" table, but not in the "customer" table. So we again use pandas *merge* with an indicator *i* and an *outer* join. Here this results in a table with *both* for inner keys, and *left_only* for keys present only in "transaction" table, then we use this indicator as a selector, and drop the indicator column afterwards. Here's the code:
+**3 -** The third question was to create a table "customer_ids" with customers that existed in the "transactions" table, but not in the "customer" table. So we again use pandas *merge* with an indicator *i* and an *outer* join. Here this results in a table with *both* for inner keys, and *left_only* for keys present only in "transaction" table, then we use this indicator as a selector, and drop the indicator column afterwards. Here's the code:
 
 ```javascript
 customer_ids = transactions.merge(customer, indicator='i', how='outer').query('i == "left_only"').drop('i',axis=1)
@@ -90,7 +91,7 @@ customer_ids = transactions.merge(customer, indicator='i', how='outer').query('i
 ![cust_ids](https://user-images.githubusercontent.com/63553829/90936928-aa700600-e3dc-11ea-8a4d-c14ebbe10a97.png){: .mx-auto.d-block :}
 
 
-4 - The fourth question consisted in creating the table "customer_summary" with the following variables: customer_id, department, total_sales, total_quantity, average_ticket, last_visit. So for that, we use pandas *groupby* to group by *customer_id* and apply the necessary measure for each of the variables e.g. count(), sum() or mean(). Here is necessary to transform the *date_id* to pandas *datetime*. The code is as follows:
+**4 -** The fourth question consisted in creating the table "customer_summary" with the following variables: customer_id, department, total_sales, total_quantity, average_ticket, last_visit. So for that, we use pandas *groupby* to group by *customer_id* and apply the necessary measure for each of the variables e.g. count(), sum() or mean(). Here is necessary to transform the *date_id* to pandas *datetime*. The code is as follows:
 
 ```javascript
 transaction_cube['date_id'] = pd.to_datetime(transaction_cube['date_id']) # date_id as datetime
@@ -107,7 +108,7 @@ customer_summary.set_index('customer_id', inplace=True)
 ![cust_summ](https://user-images.githubusercontent.com/63553829/90937527-5154a200-e3dd-11ea-8b3c-dddbb734cc80.png){: .mx-auto.d-block :}
 
 
-5 - The fifth and last question was to calculate the table "customer_metrics" with the following variables: customer_id, department, total_sales, total_quantity, product_name (most sold product per customer), and price_median. Here some variables were already calculated, so we can use table "customer_summary", as we have been doing in a cascade since the beginning. For the *product_name*, I had to first *groupby* and *count()*, *reset_index*, *sort_values* by *store_id* (in this case, as result from the previous step, the variable could be any), *groupby* again, and select the *first()* row. Here is the code:
+**5 -** The fifth and last question was to calculate the table "customer_metrics" with the following variables: customer_id, department, total_sales, total_quantity, product_name (most sold product per customer), and price_median. Here some variables were already calculated, so we can use table "customer_summary", as we have been doing in a cascade since the beginning. For the *product_name*, I had to first *groupby* and *count()*, *reset_index*, *sort_values* by *store_id* (in this case, as result from the previous step, the variable could be any), *groupby* again, and select the *first()* row. Here is the code:
 
 ```javascript
 customer_metrics = customer_summary.copy()
@@ -165,4 +166,6 @@ From these bloxplots, some assumptions can be made:
 - **Cluster 2:** customers with a higher average ticket value i.e. more expensive products, but not so frequent and recent buyers (11 of 46 = app. 20%);
 
 This analysis are quite interesting. From this quick inspection one could elaborate a marketing campaign focused on each Cluster, adding some other features e.g. age and gender, which can increase the possibility of success. For example, customers from Cluster 0 and Cluster 1 are old buyers, so they don't need some intense marketing camping, since they are already frequent buyers and, in case of Cluster 0 customers, with a high volume. Cluster 2, however, need a more intense and specific campaign, since they are relatively recent buyers with a high average ticket, which can mean they buy specific and expensive products. 
+
+{: .box-note}
 This all looks so beatufil and simple, but *caveat emptor!*, these couple last lines are assumptions, and should be analyzed with a higher scrutiny.
