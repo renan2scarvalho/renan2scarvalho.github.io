@@ -242,7 +242,7 @@ Yeo-Johnson transformation comes to **address the non-zero and non-negative valu
 ```javascript
 from scipy.stats import yeojohnson as yeo
 
-skew_yeo = pd.DataFrame(df.skew(), columns=['no transformation'])
+skew_yeo = pd.DataFrame(df.skew(), columns=['skewness'])
 
 yeo_johnson = []
 for i in range(0, df.shape[1]): 
