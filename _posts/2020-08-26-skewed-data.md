@@ -22,8 +22,8 @@ The reason is simply that if the dataset can be transformed to be *statistically
 tools possible are available to them to use. Tests such as the ANOVA, t-test, F-test, and many others depend on the data having constant variance (σ²)
 or follow a normal distribution.
 
-As is know from statistics, **tails** (or in other words skewed distributions) may act as **outliers** for the statistical model, 
-and *several models use polynomial calculations on the predictor data* i.e. labels, such as most linear models, neural networks, and SVM. 
+As it is known from statistics, **tails** (or in other words skewed distributions) may act as **outliers** for the statistical model, 
+and *several models use polynomial calculations on the predictor data* i.e. labels, such as most linear models, neural networks, and Supported Vector Machines (SVM). 
 Thus, in those cases, a *skewed label* distribution could have a **negative effect** over the models, since tails of distributions can dominate 
 the underlying calculations, even though some models are robust to outliers (e.g. Tree-based), limiting the number of models that could be 
 chosen [[1]](https://towardsdatascience.com/skewed-data-a-problem-to-your-statistical-model-9a6b5bb74e37).
@@ -33,7 +33,7 @@ So now let's begin!
 ## Hands-on!
 
 The dataset used here is small sample of *imdb movies*. The primary steps here were to *drop missing values* (which are also a critical theme for data
-cleansing), and *select numerical variables* (int64 and float64). The image ahead shows the dataframe partially, which has 3756 samples and 16 predictors.
+cleansing), and *select numerical variables* (int64 and float64). The image ahead shows the dataframe partially, which has 3756 samples and 16 labels (hereon predictors).
 
 ```javascript
 df.shape
@@ -104,7 +104,7 @@ skew['1/(x+1)'] = invert1_sk
 sk = skewness.reset_index().merge(skew.reset_index()).set_index('index')
 ```
 
-Applying the transformation to "aspect_ratio" and "duration", both of which has a positive skew, we're able to **reduce skew** from 16 to -0.5, and from 2.4 to -0.24. One interesting thing here is that, if we add one to the values, the skew then becomes negative, with a better symmetry though:
+Applying the transformation to "aspect_ratio" and "duration", both of which has a positive skew, we're able to **reduce skew** from 16 to -0.5, and from 2.4 to -0.24. One interesting thing here is that, if we add one to the values, the skew becomes negative, with a better symmetry though:
 
 ![rec](https://user-images.githubusercontent.com/63553829/91363527-31edb880-e7d3-11ea-82ad-cdfd72060528.png){: .mx-auto.d-block :}
 
@@ -197,13 +197,13 @@ Since we do not have any kind of data as this here, we'll not approach *arcsine 
 
 
 ## Other transformations for skewed data
-Now were we'll apply some more complex **power transformations** to create monotonic transformations of data using power functions, aiming to make date more *normal distribution-like* [[6]](https://en.wikipedia.org/wiki/Power_transform).
+Now we'll apply some more complex **power transformations** to create monotonic transformations of data using power functions, aiming to make date more *normal distribution-like* [[6]](https://en.wikipedia.org/wiki/Power_transform).
 
-The power transformations is definde as a **continuously varying function**, with respect to a parameter λ, in a piece-wise function form that makes it continuous at the point of singularity (i.e. λ=0).
+The power transformations is defined as a **continuously varying function**, with respect to a parameter λ, in a piece-wise function form that makes it continuous at the point of singularity (i.e. λ=0).
 
 
 ### 7. Box-Cox transformation
-The Box-Cox procedure uses maximum likelihood estimation to estimate a transformation parameter λ in the equation [[7]](https://www.ime.usp.br/~abe/lista/pdfm9cJKUmFZp.pdf),[[8]](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.boxcox.html):
+The Box-Cox procedure uses *maximum likelihood estimation* to estimate a transformation parameter λ in the equation [[7]](https://www.ime.usp.br/~abe/lista/pdfm9cJKUmFZp.pdf),[[8]](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.boxcox.html):
 
 ![eq](https://user-images.githubusercontent.com/63553829/91365133-d02f4d80-e7d6-11ea-9f79-910b77283dcf.png){: .mx-auto.d-block :}
 
@@ -225,7 +225,13 @@ As we can see, skewness reduced a lot for most of the predictors. However, some 
 
 ![bc](https://user-images.githubusercontent.com/63553829/91365396-58155780-e7d7-11ea-97fb-15b77a9b2dbc.png){: .mx-auto.d-block :}
 
-It is importante to notice, though, that the Box-Cox procedure can only be applied to data that is **strictly positive!** To overcome this issue, the Yeo-Johnson procedure is addressed ahead.
+{: .box-warning} Warning: Box-Cox procedure can only be applied to data that is **strictly positive!**
+
+To overcome this issue, the Yeo-Johnson procedure is addressed next. 
+
+Just for a comparison, here's a plot with the histograms presented in the beginning:
+
+![bcimg](https://user-images.githubusercontent.com/63553829/91436330-474bfc80-e83e-11ea-80b2-7b79fa525c16.png){: .mx-auto.d-block :}
 
 
 ### 8. Yeo-Johnson transformation
@@ -249,6 +255,10 @@ skew_yeo
 Here, the results were *similar* to the Box-Cox transformation. Nevertheless, Yeo-Johnson transformation has the big advantage of approach all possible values, in contrast to Box-Cox.
 
 ![yeo](https://user-images.githubusercontent.com/63553829/91365602-e8ec3300-e7d7-11ea-9733-eedec1690f03.png){: .mx-auto.d-block :}
+
+Again for a comparison, here's a plot with the histograms presented in the beginning:
+
+![yeofig](https://user-images.githubusercontent.com/63553829/91436413-6ea2c980-e83e-11ea-8663-e91b6ff82b8a.png){: .mx-auto.d-block :}
 
 
 ### Highlights
