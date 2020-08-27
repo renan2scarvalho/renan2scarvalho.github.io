@@ -167,5 +167,5 @@ From these bloxplots, some assumptions can be made:
 
 This analysis are quite interesting. From this quick inspection one could elaborate a marketing campaign focused on each Cluster, adding some other features e.g. age and gender, which can increase the possibility of success. For example, customers from Cluster 0 and Cluster 1 are old buyers, so they don't need some intense marketing camping, since they are already frequent buyers and, in case of Cluster 0 customers, with a high volume. Cluster 2, however, need a more intense and specific campaign, since they are relatively recent buyers with a high average ticket, which can mean they buy specific and expensive products. 
 
-{: .box-note}
+{: .box-error}
 This all looks so beatufil and simple, but *caveat emptor!*, these couple last lines are assumptions, and should be analyzed with a higher scrutiny.
