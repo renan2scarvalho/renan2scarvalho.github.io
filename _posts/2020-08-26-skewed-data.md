@@ -20,7 +20,7 @@ such as **reduce skewness**.
 More specifically, when removing skewness, transformations are attempting to make the dataset follow the *Gaussian distribution*.
 The reason is simply that if the dataset can be transformed to be *statistically* close enough to a *normmal* or *Gaussian* dataset, then the largest set of
 tools possible are available to them to use. Tests such as the ANOVA, t-test, F-test, and many others depend on the data having constant variance (σ²)
-or follow a normal distribution :dart:.
+or follow a normal distribution.
 
 As it is known from statistics, **tails** (or in other words skewed distributions) may act as **outliers** for the statistical model, 
 and *several models use polynomial calculations on the predictor data* i.e. labels, such as most linear models, neural networks, and Supported Vector Machines (SVM). 
@@ -92,7 +92,7 @@ Use if:
 - data may have been **originally derived by division**, or **represents ratio**;
  
 {: .box-warning}
-:warning: Data must be positive, and not close to zero :warning:.
+Data must be positive, and not close to zero.
 
 ```javascript
 invert = df[['aspect_ratio','duration']]
@@ -227,7 +227,7 @@ As we can see, skewness reduced a lot for most of the predictors. However, some 
 ![bc](https://user-images.githubusercontent.com/63553829/91365396-58155780-e7d7-11ea-97fb-15b77a9b2dbc.png){: .mx-auto.d-block :}
 
 {: .box-error} 
-:no_entry_sign: Box-Cox procedure can only be applied to data that is **strictly positive** :no_entry_sign:.
+Box-Cox procedure can only be applied to data that is **strictly positive**.
 
 To overcome this issue, the Yeo-Johnson procedure is addressed next. 
 
