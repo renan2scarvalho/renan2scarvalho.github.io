@@ -225,7 +225,8 @@ As we can see, skewness reduced a lot for most of the predictors. However, some 
 
 ![bc](https://user-images.githubusercontent.com/63553829/91365396-58155780-e7d7-11ea-97fb-15b77a9b2dbc.png){: .mx-auto.d-block :}
 
-{: .box-warning} Warning: Box-Cox procedure can only be applied to data that is **strictly positive!**
+{: .box-warning} 
+Box-Cox procedure can only be applied to data that is **strictly positive**.
 
 To overcome this issue, the Yeo-Johnson procedure is addressed next. 
 
