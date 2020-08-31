@@ -41,11 +41,11 @@ software that provides the ETL capabilities
 that facilitates the process of capturing, cleansing, and storing data using a uniform and consistent format that is accessible and relevant 
 to end users and IoT technologies. Some common uses of Pentaho Data Integration include:
 
-- Data migration between different databases and applications
-- Loading huge data sets into databases taking full advantage of cloud, clustered and massively parallel processing environments
-- Data Cleansing with steps ranging from very simple to very complex transformations
-- Data Integration including the ability to leverage real-time ETL as a data source for Pentaho Reporting
-- Data warehouse population with built-in support for slowly changing dimensions and surrogate key creation (as described above)
+- Data migration between different databases and applications;
+- Loading huge data sets into databases taking full advantage of cloud, clustered and massively parallel processing environments;
+- Data Cleansing with steps ranging from very simple to very complex transformations;
+- Data Integration including the ability to leverage real-time ETL as a data source for Pentaho Reporting;
+- Data warehouse population with built-in support for slowly changing dimensions and surrogate key creation (as described above).
 
 Now we now what the ETL process is about, and the tool to work with it, so let's get it done!
 
