@@ -29,7 +29,7 @@ and is conducted to the staging area, which is basically a temporary area, where
 - **Transformation:** perform several adjusts, improving data quality, and consolidate data from one or more sources;
 - **Load:** load the structured data into the presentation layer, following the dimensional model.
 
-![ETL](https://miro.medium.com/max/480/1*3RT78P9QznDCf1cs4-8_9Q.jpeg){: .max-auto.d-block :}
+![ETL](https://miro.medium.com/max/480/1*3RT78P9QznDCf1cs4-8_9Q.jpeg){: .mx-auto.d-block :}
 
 For this post, I've used Pentaho Data Integration and MySQL Workbench to realize an ETL process as part of a workshop. So let's take a quick look 
 over Pentaho.
@@ -76,15 +76,50 @@ The following scheme represents this transction model, where each Primary Key (P
 
 ![trans_sch](https://user-images.githubusercontent.com/63553829/91753039-a8a50000-eb9d-11ea-9bd9-18bfd3425ccb.png){: .mx-auto.d-block :}
 
-Now approaching the dimensional model, when in the DW, the PKs have another name: Surrogate Key (SK), which is basically an artificial key
+Now approaching the dimensional model, when in the DW, the PKs have another name: Surrogate Key (SK), which is basically an artificial key that exists to maintain the integrity of a dimension's information, since it has the characteristics of a PK. 
+When a PK comes from a transaction base, is also called *Natural Key* or *Business Key*. The following star schema, proposed by [Kimball](https://www.kimballgroup.com/data-warehouse-business-intelligence-resources/kimball-techniques/dimensional-modeling-techniques/star-schema-olap-cube/), will be the following:
+
+![star_sch](https://user-images.githubusercontent.com/63553829/91753371-2cf78300-eb9e-11ea-9395-eb857fd85a3b.png){: .mx-auto.d-block :}
 
 
+### 2. Staging Area
 
+The Staging Area consists in creating a temporary area to extract tables in order to standardize them prior to transformation. Since now it's the time to do data treatment and join data, we can presume that this would demand a high data processing cost, and if it's made directly in the data origin it probably would affect the performance of the production systems, since the computational resource is high. Another reason is that in several cases is necessary to cross information existing in different data bases physically separated, and the staging area has the tables in the same place to perform this cross-information. So the staging area is nothing more than a relational data base which works as a repository for the extracted transaction informations so they can be treated. So, to begin, we must create our staging area in MySQL with the following code:
 
+```javascript
+CREATE DATABASE stg_workshopbi;
+```
 
+Now we can **extract** data inside the PDI. The best practice is to extract each dataset separately, but here we will perform the extraction of all databases with the same extension (*csv*) all at once to quick the process. We must add *input* boxes, as well as *output* boxes to the *MySQL Staging Area*:
 
+![ext](https://user-images.githubusercontent.com/63553829/91754286-88764080-eb9f-11ea-8556-bd2292a49f8a.png){: .mx-auto.d-block :}
 
+For each input, we browse for the files directory, and *Get Fields*. In this step, is important to *Preview* the selected fields to alter/standardize each attribute. Here the focus is in a quick view of the ETL process, so format, length, and pricision of each attribute will not be covered:
 
+![ext2](https://user-images.githubusercontent.com/63553829/91755549-acd31c80-eba1-11ea-9dfd-b650377bff5a.png){: .mx-auto.d-block :}
+
+Next, we must configure a new MySQL connection to *extract* data to the *staging area*. After filling the settings, one should *Test* the connection, and if it's successiful, go to the next step, which is create the tables in MySQL, which can be performed in two ways: through a query in MySQL, or directly in PDI, like we do here:
+
+![ext3](https://user-images.githubusercontent.com/63553829/91756255-d80a3b80-eba2-11ea-8210-7bbf2ada440a.png){: .mx-auto.d-block :}
+![ext4](https://user-images.githubusercontent.com/63553829/91756804-b9f10b00-eba3-11ea-953c-c9ec7368c3b9.png){: .mx-auto.d-block :}
+
+After making all these steps for all inputs, the final extraction step would be runnin the pipeline. However, this would lead to an error:
+
+![ext5](https://user-images.githubusercontent.com/63553829/91757255-6501c480-eba4-11ea-9dd7-d53fde833c03.png){: .mx-auto.d-block :}
+
+If we take a closer look in *PRODUCT_DESCRIPTION*, we'd notice that *Data Type TINYTEXT* would not be able to cover all chars present in that attribute, so we must change the PDI SQL query when creating the table for the product in the *staging area* from *TINYTEXT* to *LONGTEXT*:
+
+![ext6](https://user-images.githubusercontent.com/63553829/91757414-a4c8ac00-eba4-11ea-961d-af6ec0d5bf38.png){: .mx-auto.d-block :}
+
+Now, if we run our pipeline, the **extraction** procedure will be successful:
+
+![ext7](https://user-images.githubusercontent.com/63553829/91757776-46e89400-eba5-11ea-80fc-27107b88878b.png)
+
+Done! Teh first step was taken: we took care of our **extraction!** If one wants, one can query in MySQL to check it out:
+
+```javascript
+SELECT * FROM table;
+```
 
 
 
