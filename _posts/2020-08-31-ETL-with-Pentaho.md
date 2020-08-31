@@ -22,8 +22,6 @@ this in a warehouse;
 detailed, and historical, to support operational, tactical, and strategic decision making;
 - **Presentation:** analyze and apply front-end tools to visualize data in a friendly way, to support decision making.
 
-(https://miro.medium.com/max/480/1*3RT78P9QznDCf1cs4-8_9Q.jpeg){: .max-auto.d-block :}
-
 Nevertheless, ETL takes about 70% of the the total time to develop a BI application. So let's look what is the ETL process with more detail:
 
 - **Extraction:** data is extract from Online Transaction Processing (OLTPs) with several different extentions (e.g. sql, csv, excel, json)
@@ -31,7 +29,7 @@ and is conducted to the staging area, which is basically a temporary area, where
 - **Transformation:** perform several adjusts, improving data quality, and consolidate data from one or more sources;
 - **Load:** load the structured data into the presentation layer, following the dimensional model.
 
-(https://www.idatamigration.com/img/etl_diagram_2.png){: .mx-auto.d-block :}
+[ETL](https://miro.medium.com/max/480/1*3RT78P9QznDCf1cs4-8_9Q.jpeg){: .max-auto.d-block :}
 
 For this post, I've used Pentaho Data Integration and MySQL Workbench to realize an ETL process as part of a workshop. So let's take a quick look 
 over Pentaho.
@@ -78,7 +76,7 @@ The following scheme represents this transction model, where each Primary Key (P
 
 ![trans_sch](https://user-images.githubusercontent.com/63553829/91753039-a8a50000-eb9d-11ea-9bd9-18bfd3425ccb.png){: .mx-auto.d-block :}
 
-
+Now approaching the dimensional model, when in the DW, the PKs have another name: Surrogate Key (SK), which is basically an artificial key
 
 
 
