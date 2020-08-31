@@ -5,13 +5,11 @@ subtitle: BI Fundamentals and Tools
 thumbnail-img: https://pentahobrazil.files.wordpress.com/2013/12/pentaho-logo.png
 #cover-img: 
 #share-img: 
-gh-repo: renan2scarvalho/ETL-with_Pentaho
+gh-repo: renan2scarvalho/Bootcamp_BI/Módulo 3/Workshop BI
 gh-badge: [star, fork, follow]
 tags: [ETL, pentaho]
 comments: true
 ---
-
-## Introduction
 
 The [Gartner Group](https://www.gartner.com/en/information-technology/glossary/business-intelligence-bi) describes Business Intelligence (BI)
 as the application of a group of methodologies and technologies to improve the companies operations' efficiency and 
@@ -35,7 +33,7 @@ and is conducted to the staging area, which is basically a temporary area, where
 
 (https://www.idatamigration.com/img/etl_diagram_2.png){: .mx-auto.d-block :}
 
-For this post, I've used Pentaho Data Integration and MySQL Workbench to realize an ETL process for a *"BI Developer"* bootcamp challenge. So let's take a quick look 
+For this post, I've used Pentaho Data Integration and MySQL Workbench to realize an ETL process as part of a workshop. So let's take a quick look 
 over Pentaho.
 
 ## Pentaho Data Integration (PDI)
@@ -56,8 +54,29 @@ Now we now what the ETL process is about, and the tool to work with it, so let's
 
 ## Hands-on!
 
+The workshop aimed to demonstrate in a practical and objective way how to transform a transaction base model (OLTP) in a dimensional model (OLAP) for a Data Warehouse (DW). The project used four *csv* files of a ficticious technology company (hardware and software). The worksheets are as follows, and they can be found on [this](https://github.com/renan2scarvalho/Bootcamp_BI/tree/master/M%C3%B3dulo%203/Workshop%20BI) Git Rep:
+- customer
+- orders
+- products
+- promotions
+- salesrep
+
+This ETL procedure consisted in 5 steps:
+1. Identify data sources and the resulting dimensional model;
+2. Create a staging area and extract data;
+3. Implement the dimensional model with fits the business model;
+4. Structure the dimension and fact tables;
+5. Organize the ETL pipeline.
+
+Here we'll use, as commented above, two open source tools, *Pentaho* and *MySQL*, which allows us to have a high quality process with zero cost. So let's begin!
 
 
+### 1. Transaction and Dimensional Models
+
+The dataset consists in a classic retail scheme, with a list of products offered by the company. An order contains several items, and is attached to a sales representative, and can also be attached to a promotion.
+The following scheme represents this transction model, where each Primary Key (PK) identifies one item, whereas Foreign Keys (FK) connects tables:
+
+![trans_sch](https://user-images.githubusercontent.com/63553829/91753039-a8a50000-eb9d-11ea-9bd9-18bfd3425ccb.png){: .mx-auto.d-block :}
 
 
 
