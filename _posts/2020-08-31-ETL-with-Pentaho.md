@@ -29,7 +29,7 @@ and is conducted to the staging area, which is basically a temporary area, where
 - **Transformation:** perform several adjusts, improving data quality, and consolidate data from one or more sources;
 - **Load:** load the structured data into the presentation layer, following the dimensional model.
 
-https://miro.medium.com/max/480/1*3RT78P9QznDCf1cs4-8_9Q.jpeg{: .max-auto.d-block :}
+![ETL](https://miro.medium.com/max/480/1*3RT78P9QznDCf1cs4-8_9Q.jpeg){: .max-auto.d-block :}
 
 For this post, I've used Pentaho Data Integration and MySQL Workbench to realize an ETL process as part of a workshop. So let's take a quick look 
 over Pentaho.
