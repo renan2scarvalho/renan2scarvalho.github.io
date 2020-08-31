@@ -47,7 +47,9 @@ to end users and IoT technologies. Some common uses of Pentaho Data Integration 
 - Data Integration including the ability to leverage real-time ETL as a data source for Pentaho Reporting;
 - Data warehouse population with built-in support for slowly changing dimensions and surrogate key creation (as described above).
 
-Now we now what the ETL process is about, and the tool to work with it, so let's get it done!
+Now we now what the ETL process is about, and the tools to work with it, so let's get it done!
+
+PS: this post (Part 1) will approach only the **extraction** step. The **transformation** and **load** will be on [Part 2](https://renan2scarvalho.github.io/2020-08-31-ETL-Pentaho-Pt2/).
 
 
 ## Hands-on!
@@ -121,8 +123,4 @@ Done! Teh first step was taken: we took care of our **extraction!** If one wants
 SELECT * FROM table;
 ```
 
-
-
-
-
-
+Check out [Part 2](https://renan2scarvalho.github.io/2020-08-31-ETL-Pentaho-Pt2/) for more **ETL!**
