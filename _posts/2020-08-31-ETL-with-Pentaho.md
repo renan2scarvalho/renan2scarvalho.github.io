@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Extraction, Transformation, and Loading with Pentaho
-subtitle: BI Fundamentals and Tools
+subtitle: BI Fundamentals and Tools - Part 1
 thumbnail-img: https://pentahobrazil.files.wordpress.com/2013/12/pentaho-logo.png
 #cover-img: 
 #share-img: 
