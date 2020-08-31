@@ -7,7 +7,7 @@ thumbnail-img: https://pentahobrazil.files.wordpress.com/2013/12/pentaho-logo.pn
 #share-img: 
 gh-repo: renan2scarvalho/Bootcamp_BI/Módulo 3/Workshop BI
 gh-badge: [star, fork, follow]
-tags: [ETL, pentaho]
+tags: [BI, ETL, pentaho]
 comments: true
 ---
 
@@ -29,7 +29,7 @@ and is conducted to the staging area, which is basically a temporary area, where
 - **Transformation:** perform several adjusts, improving data quality, and consolidate data from one or more sources;
 - **Load:** load the structured data into the presentation layer, following the dimensional model.
 
-[ETL](https://miro.medium.com/max/480/1*3RT78P9QznDCf1cs4-8_9Q.jpeg){: .max-auto.d-block :}
+https://miro.medium.com/max/480/1*3RT78P9QznDCf1cs4-8_9Q.jpeg{: .max-auto.d-block :}
 
 For this post, I've used Pentaho Data Integration and MySQL Workbench to realize an ETL process as part of a workshop. So let's take a quick look 
 over Pentaho.
