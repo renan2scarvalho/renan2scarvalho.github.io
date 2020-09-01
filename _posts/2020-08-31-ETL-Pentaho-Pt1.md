@@ -29,7 +29,7 @@ and is conducted to the staging area, which is basically a temporary area, where
 - **Transformation:** perform several adjusts, improving data quality, and consolidate data from one or more sources;
 - **Load:** load the structured data into the presentation layer, following the dimensional model.
 
-![ETL](https://miro.medium.com/max/480/1*3RT78P9QznDCf1cs4-8_9Q.jpeg){: .mx-auto.d-block :}
+![ETL](https://miro.medium.com/max/480/1*3RT78P9QznDCf1cs4-8_9Q.jpeg){: .center}
 
 Source: [[1]](https://medium.com/@aviralsrivastava/how-etl-designs-and-data-modeling-are-important-for-designing-a-data-warehouse-2b3cc3514d0e)
 
