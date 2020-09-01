@@ -13,7 +13,9 @@ comments: true
 
 ### So let's continue...
 
-[Part 1](https://renan2scarvalho.github.io/2020-08-31-ETL-Pentaho-Pt1/) of this post covered the **extraction** step. Now let's keep it moving...
+[Part 1](https://renan2scarvalho.github.io/2020-08-31-ETL-Pentaho-Pt1/) of this post covered the **extraction** step. 
+Just to recap, we're performing an ETL process for a ficticious technology (hardware and software) company, going from Transaction to a Dimensional Model.
+Now let's keep it moving...
 
 ### 3. Transformation for Adequacy
 
