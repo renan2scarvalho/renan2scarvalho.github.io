@@ -32,7 +32,7 @@ and is conducted to the staging area, which is basically a temporary area, where
 ![ETL](https://miro.medium.com/max/480/1*3RT78P9QznDCf1cs4-8_9Q.jpeg){: .mx-auto.d-block :}
 
 Source: [[1]](https://medium.com/@aviralsrivastava/how-etl-designs-and-data-modeling-are-important-for-designing-a-data-warehouse-2b3cc3514d0e)
-{: style="color:gray; font-size: 80%; text-align: center;"}
+{: .text-center}
 
 For this post, we'll use Pentaho Data Integration and MySQL Workbench to realize an ETL process as part of a workshop. So let's take a quick look 
 over Pentaho.
