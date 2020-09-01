@@ -123,7 +123,32 @@ Now we just have to remove the fields created in the beginning, and **load** dat
 **Finally!** All Dimensions are made and load into the DW! Our *final ETL step: Fact Table Sales*.
 
 
+#### 6. Fact Sales
 
+Now, after calling the Sales table from the *staging area*, we use a *calculator* to compute *total sales*, and create a new date attribute so we can standardize the dates from Sales table (YYYY/MM/dd) and the Dimensions (dd/MM/YYYY) throough a *Conversion mask*:
+
+![fato](https://user-images.githubusercontent.com/63553829/91771287-1d396800-ebb9-11ea-94a2-d0e09df96a9d.png){: .mx-auto.d-block :}
+
+On the next step, we'll performe a *lookup* over the Dimensions, using the DW connection on MySQL. We apply the PKs and FKs as connection between the tables for the lookup, and return the SKs:
+
+![fato2](https://user-images.githubusercontent.com/63553829/91770591-d303b700-ebb7-11ea-9435-b11752e4f5d1.png){: .mx-auto.d-block :}
+![fato3](https://user-images.githubusercontent.com/63553829/91770488-9e8ffb00-ebb7-11ea-8953-4664468d0c10.png){: .mx-auto.d-block :}
+![fato4](https://user-images.githubusercontent.com/63553829/91770681-f9c1ed80-ebb7-11ea-97eb-84d3e255c71e.png){: .mx-auto.d-block :}
+
+We must replace SKs null values:
+
+![fato5](https://user-images.githubusercontent.com/63553829/91771366-3f32ea80-ebb9-11ea-803f-76389a1c8adf.png){: .mx-auto.d-block :}
+
+And remove the *IDs* from the fact, since the SKs serves this purpose
+
+![fato6](https://user-images.githubusercontent.com/63553829/91771510-7b664b00-ebb9-11ea-999a-de554c659c65.png){: .mx-auto.d-block :}
+
+All right! We're almost done, just have to **load** the fact into the DW, we've finished. So just create the table through PDI SQL query to ease the process, and *it's done!*
+After the following query inside the MySQL Workbench, we can check the success of this ETL process:
+
+![mysql](https://user-images.githubusercontent.com/63553829/91771809-021b2800-ebba-11ea-8f23-6291d324655d.png){: .mx-auto.d-block :}
+
+We can notice that this **ETL** process gave us some work, have lots of details, but isn't complicated. Just *need attention!* Also, here we applied extraction acconrdingly to the files extention, but the best practice would performe extraction, transformation, and loading of each input *individually*. Added to that, we could automate the pipeline through the Pentaho *Jobs*, scheduling the ETLs, sendind emails of success. Even though this is quite simple, it's out of the boundaries of this post.
 
 
 
