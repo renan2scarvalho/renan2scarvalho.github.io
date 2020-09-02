@@ -56,8 +56,8 @@ skewness = pd.DataFrame(skewness, columns=['skewness'])
 
 ![sk](https://user-images.githubusercontent.com/63553829/91346892-dfeb6980-e7b7-11ea-9775-0b9c8c52dfbe.png){: .mx-auto.d-block :}
 
-We can see the skewness from the histograms ahead for four predictors ("budget", "duration", "imdb_score", "title_year"), which are extremeley left
-skewed, left skewed, moderately skewed, and  right skewed, respectively:
+We can see the skewness from the histograms ahead for four predictors ("budget", "duration", "imdb_score", "title_year"), which are extremeley right
+skewed, right skewed, moderately skewed, and left skewed, respectively:
 
 ![hist](https://user-images.githubusercontent.com/63553829/91347239-5ee0a200-e7b8-11ea-87c5-04cd529c779c.png){: .mx-auto.d-block :}
 
