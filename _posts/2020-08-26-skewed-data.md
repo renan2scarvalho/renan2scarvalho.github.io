@@ -43,8 +43,8 @@ df.shape
 ![df](https://user-images.githubusercontent.com/63553829/91345851-64d58380-e7b6-11ea-9670-ecb355ed8f80.png){: .mx-auto.d-block :}
 
 As a general rule of thumb, we can consider that:
-- if skewness < -1 && skewness > 1: distribution is **highly skewed**;
-- if -1 < skewness < -0.5 || 0.5 < skewness < 1: distribution is **moderately skewed**;
+- if skewness < -1 AND skewness > 1: distribution is **highly skewed**;
+- if -1 < skewness < -0.5 OR 0.5 < skewness < 1: distribution is **moderately skewed**;
 - if -0.5 < skeweness < 0.5: distribution is **approximately symmetric**.
 
 Calculating the skewness for this data by using the **Fischer-Perarson standardized moment coefficient** [[2]](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.skew.html),[[3]](https://medium.com/@ODSC/transforming-skewed-data-for-machine-learning-90e6cc364b0), we see that only the predictor *"imdb_score"* is moderately skewed, which leaves us with a lot of work from now on!
