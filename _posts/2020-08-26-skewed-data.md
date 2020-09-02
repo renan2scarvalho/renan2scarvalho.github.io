@@ -20,13 +20,13 @@ such as **reduce skewness**.
 More specifically, when removing skewness, transformations are attempting to make the dataset follow the *Gaussian distribution*.
 The reason is simply that if the dataset can be transformed to be *statistically* close enough to a *normal* or *Gaussian* dataset, then the largest set of
 tools possible are available to them to use. Tests such as the ANOVA, t-test, F-test, and many others depend on the data having constant variance (σ²)
-or follow a normal distribution.
+or follow a normal distribution[[1]](https://www.ibm.com/support/pages/transforming-variable-normality-parametric-statistics).
 
 As it is known from statistics, **tails** (or in other words skewed distributions) may act as **outliers** for the statistical model, 
 and *several models use polynomial calculations on the predictor data* i.e. labels, such as most linear models, neural networks, and Supported Vector Machines (SVM). 
 Thus, in those cases, a *skewed label* distribution could have a **negative effect** over the models, since tails of distributions can dominate 
 the underlying calculations, even though some models are robust to outliers (e.g. Tree-based), limiting the number of models that could be 
-chosen [[1]](https://towardsdatascience.com/skewed-data-a-problem-to-your-statistical-model-9a6b5bb74e37).
+chosen [[2]](https://towardsdatascience.com/skewed-data-a-problem-to-your-statistical-model-9a6b5bb74e37).
 
 So now let's begin!
 
@@ -47,7 +47,7 @@ As a general rule of thumb, we can consider that:
 - if -1 < skewness < -0.5 OR 0.5 < skewness < 1: distribution is **moderately skewed**;
 - if -0.5 < skeweness < 0.5: distribution is **approximately symmetric**.
 
-Calculating the skewness for this data by using the **Fischer-Perarson standardized moment coefficient** [[2]](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.skew.html),[[3]](https://medium.com/@ODSC/transforming-skewed-data-for-machine-learning-90e6cc364b0), we see that only the predictor *"imdb_score"* is moderately skewed, which leaves us with a lot of work from now on!
+Calculating the skewness for this data by using the **Fischer-Perarson standardized moment coefficient** [[3]](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.skew.html),[[4]](https://medium.com/@ODSC/transforming-skewed-data-for-machine-learning-90e6cc364b0), we see that only the predictor *"imdb_score"* is moderately skewed, which leaves us with a lot of work from now on!
 
 ```javascript
 skewness = df.skew().sort_values(ascending=False)
@@ -72,7 +72,7 @@ Use if:
 
 ```javascript
 srt = df[['budget','gross']]
-srt = srt**(.5)
+srt = srt**(0.5)
 srt_sk = srt.skew()
 srt_sk = pd.DataFrame(srt_sk, columns=['square root'])
 sk = skewness.reset_index().merge(srt_sk.reset_index()).set_index('index')
@@ -198,13 +198,13 @@ Since we do not have any kind of data as this here, we'll not approach *arcsine 
 
 
 ## Other transformations for skewed data
-Now we'll apply some more complex **power transformations** to create monotonic transformations of data using power functions, aiming to make date more *normal distribution-like* [[6]](https://en.wikipedia.org/wiki/Power_transform).
+Now we'll apply some more complex **power transformations** to create monotonic transformations of data using power functions, aiming to make date more *normal distribution-like* [[5]](https://en.wikipedia.org/wiki/Power_transform).
 
 The power transformations is defined as a **continuously varying function**, with respect to a parameter λ, in a piece-wise function form that makes it continuous at the point of singularity (i.e. λ=0).
 
 
 ### 7. Box-Cox transformation
-The Box-Cox procedure uses *maximum likelihood estimation* to estimate a transformation parameter λ in the equation [[7]](https://www.ime.usp.br/~abe/lista/pdfm9cJKUmFZp.pdf),[[8]](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.boxcox.html):
+The Box-Cox procedure uses *maximum likelihood estimation* to estimate a transformation parameter λ in the equation [[6]](https://www.ime.usp.br/~abe/lista/pdfm9cJKUmFZp.pdf),[[7]](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.boxcox.html):
 
 ![eq](https://user-images.githubusercontent.com/63553829/91365133-d02f4d80-e7d6-11ea-9f79-910b77283dcf.png){: .mx-auto.d-block :}
 
@@ -237,7 +237,7 @@ Just for a comparison, here's a plot with the histograms presented in the beginn
 
 
 ### 8. Yeo-Johnson transformation
-Yeo-Johnson transformation comes to **address the non-zero and non-negative values** issue of the Box-Cox transformation. Works almost the same way, but when estimating the transformation parameter, it founds the value of λ that minimizes the [Kullback-Leibler distance](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence) between the normal and transformed distribution [[7]](https://www.ime.usp.br/~abe/lista/pdfm9cJKUmFZp.pdf), [[9]](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.yeojohnson.html):
+Yeo-Johnson transformation comes to **address the non-zero and non-negative values** issue of the Box-Cox transformation. Works almost the same way, but when estimating the transformation parameter, it founds the value of λ that minimizes the [Kullback-Leibler distance](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence) between the normal and transformed distribution [[6]](https://www.ime.usp.br/~abe/lista/pdfm9cJKUmFZp.pdf), [[8]](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.yeojohnson.html):
 
 ![eq2](https://user-images.githubusercontent.com/63553829/91365495-a7f41e80-e7d7-11ea-826a-00aaefe196f5.png){: .mx-auto.d-block :}
 
