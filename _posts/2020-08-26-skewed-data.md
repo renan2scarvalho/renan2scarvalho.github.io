@@ -18,7 +18,7 @@ such as **reduce skewness**.
 ### But why is that?
 
 More specifically, when removing skewness, transformations are attempting to make the dataset follow the *Gaussian distribution*.
-The reason is simply that if the dataset can be transformed to be *statistically* close enough to a *normmal* or *Gaussian* dataset, then the largest set of
+The reason is simply that if the dataset can be transformed to be *statistically* close enough to a *normal* or *Gaussian* dataset, then the largest set of
 tools possible are available to them to use. Tests such as the ANOVA, t-test, F-test, and many others depend on the data having constant variance (σ²)
 or follow a normal distribution.
 
