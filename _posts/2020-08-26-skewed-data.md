@@ -191,7 +191,7 @@ After applying the power transformation to the "imdb_score" and "title_year" pre
 ### 6. Arcsine transformation
 Use if:
 
-- Data are a **proportion** ranging between 0.0 - 1.0, or **percentage** from 0 - 100.
+- Data are a **proportion** ranging [0,1], or **percentage** from 0 - 100.
 - **Most** data points are **between 0.2 - 0.8**, or **between 20 and 80** for **percentages**.
 
 Since we do not have any kind of data as this here, we'll not approach *arcsine transformation*.
