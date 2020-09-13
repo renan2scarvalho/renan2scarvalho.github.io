@@ -7,6 +7,8 @@ substitle:
 
 **Modeling and simulation of a solar cavity receiver for low latitudes**
 
+*University of São Paulo (USP)* - Brazil
+
 [PDF](https://www.teses.usp.br/teses/disponiveis/106/106134/tde-30062020-150746/publico/RenanDissertacao.pdf)
 
 
