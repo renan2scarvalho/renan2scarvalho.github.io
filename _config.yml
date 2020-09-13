@@ -20,7 +20,7 @@ navbar-links:
 
 # Image to show in the navigation bar - works best with a square image
 # Remove this parameter if you don't want an image in the navbar
-avatar: "https://www.facebook.com/photo?fbid=1120092868080428&set=a.104058383017220"
+avatar: "https://user-images.githubusercontent.com/63553829/93026864-82d91b80-f5df-11ea-8269-5ce9b24fb164.jpg"
 
 # By default, the image is cut into a circle. You can disable this behaviour by setting 'round-avatar: false'
 round-avatar: true
