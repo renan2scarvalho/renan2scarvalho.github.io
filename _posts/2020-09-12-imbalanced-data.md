@@ -111,7 +111,7 @@ X_smote, y_smote = smote.fit_resample(X_num, y)
 
 SMOTE increased the number os samples from 989 to 1704, with 852 survivals and 852 deaths. Ahead we see the new "Age" distribution:
 
-![smote](https://user-images.githubusercontent.com/63553829/93004479-c703e780-f51d-11ea-9b99-16390c2715ae.png){: .mx-auto.d-block :}
+![image](https://user-images.githubusercontent.com/63553829/93007295-c24f2b80-f53d-11ea-9943-55ff38f94103.png){: .mx-auto.d-block :}
 
 ### Borderline-SMOTE
 
