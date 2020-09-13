@@ -53,7 +53,7 @@ Let's just again make some distiction between *absolute rarity and relative rari
 Let's take this by examples. In the first case, consider that we have certain cancer data with 100 samples, and the minority class, let's say cancer = exists has a ratio of 5:100. Here the minority class is small in the absolute sense.
 Now consider again a cancer dataset with 10,000 samples and same ratio. Here, the majority outnumbers the minority class, even though now 500 samples may not be considered rare.
 
-So now that we have an idea of *what's imblanaced data*, let's check out some data sampling methods that try to overcome this issue! For that, we'll use the [Estonia ferry disaster](https://www.kaggle.com/christianlillelund/passenger-list-for-the-estonia-ferry-disaster) dataset from Kaggle, focusing mainly in the binary target "Survived", which had 989 passengers, with 137 survivors and 852 deaths, which represents approximately an imbalance ratio of 1:6, and using the quantitative predictor "Age" as the comparison between before and after resampling.
+So now that we have an idea of *what's imblanaced data*, let's check out some data sampling methods that try to overcome this issue! For that, we'll use the [Estonia ferry disaster](https://www.kaggle.com/christianlillelund/passenger-list-for-the-estonia-ferry-disaster) dataset from Kaggle, focusing mainly in the binary target "Survived", which had 989 passengers, with 137 survivors and 852 deaths, which represents approximately an imbalance ratio of 1:6, and using the quantitative predictor "Age" as the comparison between before and after resampling. "Age" has a minimum of 0, maximum of 87, median of 44, mean of 44.5, and std of 17.2.
 
 ![image](https://user-images.githubusercontent.com/63553829/93004221-64115100-f51b-11ea-8f3e-e319e55be655.png){: .mx-auto.d-block :}
 
@@ -89,7 +89,7 @@ oversample = RandomOverSampler(sampling_strategy='minority', random_state=42)
 X_over, y_over = oversample.fit_resample(X,y)
 ```
 
-The oversampling increased the number os samples from 989 to 1704, with 852 survivals and 852 deaths. Ahead we see the new "Age" distribution:
+The oversampling increased the number os samples from 989 to 1704, with 852 survivals and 852 deaths. Ahead we see the new "Age" distribution, with showed the same max and min, with a small reduce over the median (44 to 42) and mean (44.5 to 42.8):
 
 ![oversamp](https://user-images.githubusercontent.com/63553829/93004424-2ca3a400-f51d-11ea-853a-4184f991a45f.png){: .mx-auto.d-block :}
 
@@ -109,7 +109,7 @@ smote = SMOTE(sampling_strategy='minority', random_state=42)
 X_smote, y_smote = smote.fit_resample(X_num, y)
 ```
 
-SMOTE increased the number os samples from 989 to 1704, with 852 survivals and 852 deaths. Ahead we see the new "Age" distribution:
+SMOTE increased the number os samples from 989 to 1704, with 852 survivals and 852 deaths. Ahead we see the new "Age" distribution, which is quite similar as the random oversampling, but with a higher decrease over the median (44 to 37) and mean (44.5 to 39.5):
 
 ![image](https://user-images.githubusercontent.com/63553829/93007295-c24f2b80-f53d-11ea-9943-55ff38f94103.png){: .mx-auto.d-block :}
 
@@ -124,11 +124,11 @@ bord_smote = BorderlineSMOTE(sampling_strategy='minority', random_state=42)
 X_bsmote, y_bsmote = bord_smote.fit_resample(X_num, y)
 ```
 
-Borderline-SMOTE increased the number os samples from 989 to 1704, with 852 survivals and 852 deaths. Ahead we see again the new "Age" distribution:
+Borderline-SMOTE increased the number os samples from 989 to 1704, with 852 survivals and 852 deaths. Ahead we see again the new "Age" distribution, which again is quite similar to the SMOTE, with same median and quite similar mean (39.6):
 
 ![bsmote](https://user-images.githubusercontent.com/63553829/93004522-2104ad00-f51e-11ea-92fc-c5f1e64d05c4.png){: .mx-auto.d-block :}
 
-### Borderline with SVM
+### Borderline-SMOTE with SVM
 
 Variant of SMOTE algorithm which use an Support Vector Machine algorithm to detect sample to use for generating new synthetic samples [[10]](https://imbalanced-learn.org/stable/generated/imblearn.over_sampling.SVMSMOTE.html).
 
@@ -141,7 +141,7 @@ bord_svm_smote = SVMSMOTE(sampling_strategy='minority', random_state=42)
 X_bssmote, y_bssmote = bord_svm_smote.fit_resample(X_num, y)
 ```
 
-Borderline-SMOTE with SVM increased the number os samples from 989 to 1704, with 852 survivals and 852 deaths. Ahead we see again the new "Age" distribution:
+Borderline-SMOTE with SVM increased the number os samples from 989 to 1704, with 852 survivals and 852 deaths. Ahead we see again the new "Age" distribution, similar to random oversampling, but with a lower median (44 to 40) and mean (44.5 to 41.2):
 
 ![svmsmote](https://user-images.githubusercontent.com/63553829/93004569-89538e80-f51e-11ea-9b8b-614c3da0176f.png){: .mx-auto.d-block :}
 
@@ -157,7 +157,7 @@ smotenc = SMOTENC(sampling_strategy='minority', categorical_features=[X_cat.dtyp
 X_smotenc, y_smotenc = smotenc.fit_resample(X_cat, y)
 ```
 
-SMOTENC increased the number os samples from 989 to 1704, with 852 survivals and 852 deaths. Ahead we see again the new "Age" distribution, as well as "Sex" distribution, which got imbalanced afterwards:
+SMOTENC increased the number os samples from 989 to 1704, with 852 survivals and 852 deaths. Ahead we see again the new "Age" distribution, similar to SMOTE but with lower median (44 to 38) and mean (44.5 to 40), as well as "Sex" distribution, which got slightly imbalanced afterwards (imbalance ratio of 1.7:1):
 
 ![smotenc](https://user-images.githubusercontent.com/63553829/93004604-d6cffb80-f51e-11ea-9498-6a6d8915f2e8.png){: .mx-auto.d-block :}
 ![smotenc2](https://user-images.githubusercontent.com/63553829/93007006-cb3dfe00-f539-11ea-944b-46a4c5ee6300.png){: .mx-auto.d-block :}
@@ -177,7 +177,7 @@ adasyn = ADASYN(random_state=42)
 X_adasyn, y_adasyn = smote.fit_resample(X_num, y)
 ```
 
-ADASYN increased the number os samples from 989 to 1704, with 852 survivals and 852 deaths. Ahead we see again the new "Age" distribution:
+ADASYN increased the number os samples from 989 to 1704, with 852 survivals and 852 deaths. Ahead we see again the new "Age" distribution, similar to SMOTE, with median (44 to 39.5) and mean (44.5 to 37):
 
 ![adasyn](https://user-images.githubusercontent.com/63553829/93007027-05a79b00-f53a-11ea-9b93-94e0bbf47b26.png){: .mx-auto.d-block :}
 
@@ -207,7 +207,7 @@ undersample = RandomUnderSampler(sampling_strategy='majority')
 X_under, y_under = undersample.fit_resample(X, y)
 ```
 
-Random undersampling decreased the number os samples from 989 to 274, with 137 survivals and 137 deaths. Ahead we see again the new "Age" distribution:
+Random undersampling decreased the number os samples from 989 to 274, with 137 survivals and 137 deaths. Ahead we see again the new "Age" distribution, with reduce in maximum (87 to 82), median (44 to 38) and mean (44.5 to 40.9):
 
 ![undersamp](https://user-images.githubusercontent.com/63553829/93007075-a9914680-f53a-11ea-8a60-ce31d308bac2.png){: .mx-auto.d-block :}
 
@@ -224,7 +224,7 @@ cnn = CondensedNearestNeighbour(sampling_strategy='majority', random_state=42)
 X_cnn, y_cnn = cnn.fit_resample(X_num, y)
 ```
 
-CNN decreased the number os samples from 989 to 385, with 137 survivals and 248 deaths. Ahead we see again the new "Age" distribution:
+CNN decreased the number os samples from 989 to 385, with 137 survivals and 248 deaths. Ahead we see again the new "Age" distribution, with minimum value increase (0 to 5), maximum decreasing (87 to 71), median decreasing (44 to 36), and mean decreasing (44.5 to 37.2):
 
 ![cnn](https://user-images.githubusercontent.com/63553829/93007097-068cfc80-f53b-11ea-8822-69b094b78625.png){: .mx-auto.d-block :}
 
@@ -244,7 +244,7 @@ near_miss = NearMiss(sampling_strategy='majority', version=1)
 X_nm, y_nm = near_miss.fit_resample(X_num, y)
 ```
 
-Near Miss decreased the number os samples from 989 to 273, with 137 survivals and 137 deaths. Ahead we see again the new "Age" distribution:
+Near Miss decreased the number os samples from 989 to 273, with 137 survivals and 137 deaths. Ahead we see again the new "Age" distribution, with minimum value increase (0 to 12), maximum decreasing (87 to 67), median decreasing (44 to 33), and mean decreasing (44.5 to 33.6):
 
 ![nm](https://user-images.githubusercontent.com/63553829/93007135-700d0b00-f53b-11ea-977c-482609db1a06.png){: .mx-auto.d-block :}
 
@@ -281,7 +281,7 @@ enn = EditedNearestNeighbours(n_neighbors=3)
 X_enn, y_enn = enn.fit_resample(X_num, y)
 ```
 
-Like Tomek Links, is a deletion technique, where the procedure only removes noisy and ambiguous points along the class boundary, so no transformation resulted here.
+Like Tomek Links, is a deletion technique, where the procedure only removes noisy and ambiguous points along the class boundary, with a small increase over the median (44 to 45) and median (44.5 to 46.3).
 
 ### One-Sided Selection
 
@@ -296,7 +296,7 @@ oss = OneSidedSelection(sampling_strategy='majority', n_neighbors=3, random_stat
 X_oss, y_oss = oss.fit_resample(X_num, y)
 ```
 
-Since it's a combination from the above mentioned techniques, the number of samples here remains the same.
+Since it's a combination from the above mentioned techniques, the number of samples here remains the same, as well as statistic values.
 
 ### Neighborhood Cleaning Rule
 
@@ -311,7 +311,7 @@ ncr = NeighbourhoodCleaningRule()
 X_ncr, y_ncr = ncr.fit_resample(X_num, y)
 ```
 
-NCR decreased the number os samples from 989 to 831, with 137 survivals and 694 deaths. Ahead we see again the new "Age" distribution:
+NCR decreased the number os samples from 989 to 831, with 137 survivals and 694 deaths. Ahead we see again the new "Age" distribution, similar to the original, with a slight increase over the median (44 to 46) and mean (44.5 to 45.9):
 
 ![ncr](https://user-images.githubusercontent.com/63553829/93007239-0a218300-f53d-11ea-8a76-f403f7d3200d.png){: .mx-auto.d-block :}
 
@@ -330,7 +330,7 @@ under = RandomUnderSampler(sampling_strategy=0.8)
 X_under, y_under = under.fit_resample(X_over, y_over)
 ```
 
-Ahead we can see, as in the other cases, the "Age" distribution:
+Ahead we can see, as in the other cases, the "Age" distribution, with a reduce in maximum value (87 to 82), median (44 to 38), and mean (44.5 to 40.9):
 
 ![image](https://user-images.githubusercontent.com/63553829/93019640-a3d54880-f5ae-11ea-9075-0955023580ff.png){: .mx-auto.d-block :
 
@@ -345,7 +345,7 @@ smote_tomek = SMOTETomek()
 X_st, y_st = smote_tomek.fit_resample(X_num, y)
 ```
 
-This join technique increased the shape to 1704 samples, with equal number of deaths and survivals. Let's see how "Age" responded:
+This join technique increased the shape to 1704 samples, with equal number of deaths and survivals. Here "Age" responded with an decrease over the median (44 to 38) and mean (44.5 to 39.9):
 
 ![image](https://user-images.githubusercontent.com/63553829/93019697-07f80c80-f5af-11ea-92e8-9babb44861aa.png){: .mx-auto.d-block :}
 
@@ -360,13 +360,12 @@ smote_enn = SMOTEENN()
 X_se, y_se = smote_enn.fit_resample(X_num, y)
 ```
 
-This procedure reduced the shape to 544 samples, with 170 survivals and 374 deaths. The "Age" distribution here is also quite different from the original, with some deletions in 30 and 50 years, and a decrease of 20 years:
+This procedure reduced the shape to 544 samples, with 170 survivals and 374 deaths. The "Age" distribution here is also quite different from the original, with some deletions in 30 and 50 years, and a decrease of 20 years, which resulted in a increase in the median (44 to 49) and mean (44.5 to 46.3):
 
 ![image](https://user-images.githubusercontent.com/63553829/93019779-8a80cc00-f5af-11ea-8ba7-a06459f0ee3e.png){: .mx-auto.d-block :}
 
+## Highlights
 
+As commented in the beginning, **data imbalance** is not fundamentally a problem at the data level, but rather a data distribution problem. So relative rarity remais as a problem formulation or algorithmic limitation issue. Over this, considering the presented issues, beginning with the **problem**, sometimes the best is to **rethink it**, trying to find a subdomain. Another possibility is to **use different metrics** such as *ROC and AUC, precision and recall*. Approaching the **algorithm issue**, one can use search methods that avoid greed and recursive partitioning (divide-and-conquer), since they have difficulty in finding rare patterns. Lastly, approaching **data issues**, the best would be acquire additional labeled data, specially for the rare cases, but that's not always the option. So we can apply **resampling**, but with caution! As explained, resampling does not handle the absolute rarity issue, so they just *reduce between-class imbalance!* Which resampling technique to be used will obviously differ between problems.
 
-
-
-
-
+A further reading recommendations is the book [Imbalanced Learning: Foundations, Algorithms, and Applications](https://www.wiley.com/en-us/Imbalanced+Learning%3A+Foundations%2C+Algorithms%2C+and+Applications-p-9781118074626), which encompasses all these applications with further detail.
