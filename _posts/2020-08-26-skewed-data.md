@@ -65,7 +65,7 @@ skewed, right skewed, moderately skewed, and left skewed, respectively:
 ### 1. Square Root Transformation
 
 Use if:
-- data have a **positive (right) skew***;
+- data have a **positive (right) skew**;
 - data may be **counts or frequencies**;
 - data have many **zeros or extremely small values**;
 - data may have a **physical (power) component** (e.g. area  vs. length).
