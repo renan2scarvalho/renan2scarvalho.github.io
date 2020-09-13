@@ -315,6 +315,54 @@ NCR decreased the number os samples from 989 to 831, with 137 survivals and 694 
 
 ![ncr](https://user-images.githubusercontent.com/63553829/93007239-0a218300-f53d-11ea-8a76-f403f7d3200d.png){: .mx-auto.d-block :}
 
+## Combining techniques
+
+Over and undersampling techniques can be quite effective, but another possibility is to join both, which can result in better performance. So let's check that:
+
+### Random Oversampling + Undersampling
+
+Here we can combine both random over-sampling and under-sampling. Remeber that we have a imbalance ratio of 6:1, so we first start with random oversampling increasing our shape to 1192 with a strategy of 0.4, and then apply random undersampling with strategy of 0.8, so the resulting shape is 765, quite similar to the startig shape, and with 340 survivals and 425 deaths:
+
+```javascript
+over = RandomOverSampler(sampling_strategy=0.4)
+X_over, y_over = over.fit_resample(X, y)
+under = RandomUnderSampler(sampling_strategy=0.8)
+X_under, y_under = under.fit_resample(X_over, y_over)
+```
+
+Ahead we can see, as in the other cases, the "Age" distribution:
+
+![image](https://user-images.githubusercontent.com/63553829/93019640-a3d54880-f5ae-11ea-9075-0955023580ff.png){: .mx-auto.d-block :
+
+### SMOTE + Tomek Links
+
+Another possibility is to join SMOTE oversampling with Tomek Links delections. So let's check it:
+
+```javascript
+from imblearn.combine import SMOTETomek
+
+smote_tomek = SMOTETomek()
+X_st, y_st = smote_tomek.fit_resample(X_num, y)
+```
+
+This join technique increased the shape to 1704 samples, with equal number of deaths and survivals. Let's see how "Age" responded:
+
+![image](https://user-images.githubusercontent.com/63553829/93019697-07f80c80-f5af-11ea-92e8-9babb44861aa.png){: .mx-auto.d-block :}
+
+### SMOTE + ENN
+
+Now let's see how to implement SMOTE oversampling and ENN deletion technique:
+
+```javascript
+from imblearn.combine import SMOTEENN
+
+smote_enn = SMOTEENN()
+X_se, y_se = smote_enn.fit_resample(X_num, y)
+```
+
+This procedure reduced the shape to 544 samples, with 170 survivals and 374 deaths. The "Age" distribution here is also quite different from the original, with some deletions in 30 and 50 years, and a decrease of 20 years:
+
+![image](https://user-images.githubusercontent.com/63553829/93019779-8a80cc00-f5af-11ea-8ba7-a06459f0ee3e.png){: .mx-auto.d-block :}
 
 
 
