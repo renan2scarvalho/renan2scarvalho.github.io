@@ -113,7 +113,7 @@ SMOTE increased the number os samples from 989 to 1704, with 852 survivals and 8
 
 ![smote](https://user-images.githubusercontent.com/63553829/93004479-c703e780-f51d-11ea-9b99-16390c2715ae.png){: .mx-auto.d-block :}
 
-## Borderline-SMOTE
+### Borderline-SMOTE
 
 In Borderline-SMOTE only borderline instances are considered to be SMOTEd, where borderline instances are defined as instances that are  misclassified by knn, generating only synthetic that are *difficult* to classify [[1]](https://www.wiley.com/en-us/Imbalanced+Learning%3A+Foundations%2C+Algorithms%2C+and+Applications-p-9781118074626), [[4]](https://machinelearningmastery.com/data-sampling-methods-for-imbalanced-classification/).
 
@@ -128,8 +128,7 @@ Borderline-SMOTE increased the number os samples from 989 to 1704, with 852 surv
 
 ![bsmote](https://user-images.githubusercontent.com/63553829/93004522-2104ad00-f51e-11ea-92fc-c5f1e64d05c4.png){: .mx-auto.d-block :}
 
-
-## Borderline with SVM
+### Borderline with SVM
 
 Variant of SMOTE algorithm which use an Support Vector Machine algorithm to detect sample to use for generating new synthetic samples [[10]](https://imbalanced-learn.org/stable/generated/imblearn.over_sampling.SVMSMOTE.html).
 
@@ -146,7 +145,7 @@ Borderline-SMOTE with SVM increased the number os samples from 989 to 1704, with
 
 ![svmsmote](https://user-images.githubusercontent.com/63553829/93004569-89538e80-f51e-11ea-9b8b-614c3da0176f.png){: .mx-auto.d-block :}
 
-## SMOTENC
+### SMOTENC
 
 SMOTENC is a SMOTE variant for Nominal and Continuous, where one have a dataset with continuous and categorical features [[11]](https://imbalanced-learn.readthedocs.io/en/stable/generated/imblearn.over_sampling.SMOTENC.html#imblearn.over_sampling.SMOTENC). So here, added to "Age", we'll use binary categorical "Sex" predictor as well.
 
@@ -158,15 +157,163 @@ smotenc = SMOTENC(sampling_strategy='minority', categorical_features=[X_cat.dtyp
 X_smotenc, y_smotenc = smotenc.fit_resample(X_cat, y)
 ```
 
-SMOTENC increased the number os samples from 989 to 1704, with 852 survivals and 852 deaths. Ahead we see again the new "Age" distribution, as well as "Sex" distribution, which decreased in values:
+SMOTENC increased the number os samples from 989 to 1704, with 852 survivals and 852 deaths. Ahead we see again the new "Age" distribution, as well as "Sex" distribution, which got imbalanced afterwards:
 
 ![smotenc](https://user-images.githubusercontent.com/63553829/93004604-d6cffb80-f51e-11ea-9498-6a6d8915f2e8.png){: .mx-auto.d-block :}
+![smotenc2](https://user-images.githubusercontent.com/63553829/93007006-cb3dfe00-f539-11ea-944b-46a4c5ee6300.png){: .mx-auto.d-block :}
+
+### ADASYN
+
+ADASYN stands for ADAptive SYNthetic, and is based on the idea of adaptively generating minority data samples according to their distributions using KNN and Euclidean distance. The algorithm adaptively updates the distribution and there are no assumptions made for the underlying distribution of the data.
+
+The key **difference** between ADASYN and SMOTE is that the *former* uses a *density distribution* as a criterion to automatically *decide the number of synthetic samples* that must be generated for each minority sample by adaptively changing the weights of the different minority samples to compensate for the skewed distributions. The *latter* generates the *same number of synthetic samples* for each original minority sample [[12]](https://www.datasciencecentral.com/profiles/blogs/handling-imbalanced-data-sets-in-supervised-learning-using-family#:~:text=The%20key%20difference%20between%20ADASYN,to%20compensate%20for%20the%20skewed), [[13]](https://imbalanced-learn.org/stable/over_sampling.html#a-practical-guide).
+
+PS: ADASYN also works only with **numerical data**.
+
+```javascript
+from imblearn.over_sampling import ADASYN
+
+adasyn = ADASYN(random_state=42)
+X_adasyn, y_adasyn = smote.fit_resample(X_num, y)
+```
+
+ADASYN increased the number os samples from 989 to 1704, with 852 survivals and 852 deaths. Ahead we see again the new "Age" distribution:
+
+![adasyn](https://user-images.githubusercontent.com/63553829/93007027-05a79b00-f53a-11ea-9b93-94e0bbf47b26.png){: .mx-auto.d-block :}
 
 
+## Undersampling
 
+Undersampling methods delete or select a subset of examples from the majority class. The techniques presented here will be :
 
+1. Random Undersampling
+2. Condensed Nearest Neighbor Rule (CNN)
+3. Near Miss Undersampling
+4. Tomek Links Undersampling
+5. Edited Nearest Neighbors Rule (ENN)
+6. One-Sided Selection (OSS)
+7. Neighborhood Cleaning Rule (NCR)
 
+### Random Undersampling
 
+Random undersampling involves randomly selecting examples from the majority class to delete from the training dataset. 
+
+Of course, this can be highly problematic, as the loss of such data can make the decision boundary between minority and majority instances harder to learn, resulting in a loss in classification performance [[6]](https://machinelearningmastery.com/random-oversampling-and-undersampling-for-imbalanced-classification/), [[14]](https://imbalanced-learn.readthedocs.io/en/stable/generated/imblearn.under_sampling.RandomUnderSampler.html).
+
+```javascript
+from imblearn.under_sampling import RandomUnderSampler
+
+undersample = RandomUnderSampler(sampling_strategy='majority')
+X_under, y_under = undersample.fit_resample(X, y)
+```
+
+Random undersampling decreased the number os samples from 989 to 274, with 137 survivals and 137 deaths. Ahead we see again the new "Age" distribution:
+
+![undersamp](https://user-images.githubusercontent.com/63553829/93007075-a9914680-f53a-11ea-8a60-ce31d308bac2.png){: .mx-auto.d-block :}
+
+### Condensed Nearest Neighbour
+
+CNN works like this: let D be the original training set of instances, and C be a set of instances containing all of the minority  lass examples and a randomly selected majority instance. CNN then classifies all instances in D by finding its nearest neighbor in C and adding it to C if it is misclassified, effectively eliminated in the resulting dataset C as any instance correctly classified by its nearest neighbors is not added to the dataset [[1]](https://www.wiley.com/en-us/Imbalanced+Learning%3A+Foundations%2C+Algorithms%2C+and+Applications-p-9781118074626).
+
+PS: CNN works only with **numerical data!**
+
+```javascript
+from imblearn.under_sampling import CondensedNearestNeighbour
+
+cnn = CondensedNearestNeighbour(sampling_strategy='majority', random_state=42)
+X_cnn, y_cnn = cnn.fit_resample(X_num, y)
+```
+
+CNN decreased the number os samples from 989 to 385, with 137 survivals and 248 deaths. Ahead we see again the new "Age" distribution:
+
+![cnn](https://user-images.githubusercontent.com/63553829/93007097-068cfc80-f53b-11ea-8822-69b094b78625.png){: .mx-auto.d-block :}
+
+### Near Miss
+
+It's a family of methods that use KNN to select examples from the majority class [[4]](https://machinelearningmastery.com/data-sampling-methods-for-imbalanced-classification/). 
+- NearMiss-1 selects examples from the majority class that have the smallest average distance to the three closest examples from the minority class;
+- NearMiss-2 selects examples from the majority class that have the smallest average distance to the three furthest examples from the minority class;
+- NearMiss-3 involves selecting a given number of majority class examples for each example in the minority class that are closest.
+
+PS: Near Miss works only with **numerical data!**
+
+```javascript
+from imblearn.under_sampling import NearMiss
+
+near_miss = NearMiss(sampling_strategy='majority', version=1)
+X_nm, y_nm = near_miss.fit_resample(X_num, y)
+```
+
+Near Miss decreased the number os samples from 989 to 273, with 137 survivals and 137 deaths. Ahead we see again the new "Age" distribution:
+
+![nm](https://user-images.githubusercontent.com/63553829/93007135-700d0b00-f53b-11ea-977c-482609db1a06.png){: .mx-auto.d-block :}
+
+### Tomek Links
+
+Tomek Links is a technique that selects examples from the majority class to delete.
+
+With $\delta$(a,b) be the distance between two instances a and b, they define a Tomek Link if [[1]](https://www.wiley.com/en-us/Imbalanced+Learning%3A+Foundations%2C+Algorithms%2C+and+Applications-p-9781118074626):
+1. instance a nearest neighbour is b
+2. instance b nearest neighbour is a
+3. instances a and b belong to different classes.
+
+PS: Tomek Links need **numerical data!**
+
+```javascript
+from imblearn.under_sampling import TomekLinks
+
+tomek_links = TomekLinks()
+X_tl, y_tl = tomek_links.fit_resample(X_num, y)
+```
+
+As commented in [[15]](https://machinelearningmastery.com/undersampling-algorithms-for-imbalanced-classification/), because the procedure removes only Tomek Links, we would not expect the result to be balanced, but only less ambiguous along the class boundary, so the number os samples, survivals and deaths are the same, same for "Age" distribution.
+
+### Edited Nearest Neighbours
+
+ENN involves using k=3 nearest neighbors to locate those examples in a dataset that are misclassified and deleting them. This procedure can be repeated multiple times on the same dataset, better refining the selection of examples in the majority class [[4]](https://machinelearningmastery.com/data-sampling-methods-for-imbalanced-classification/).
+
+PS: ENN demands **numerical data!**
+
+```javascript
+from imblearn.under_sampling import EditedNearestNeighbours
+
+enn = EditedNearestNeighbours(n_neighbors=3)
+X_enn, y_enn = enn.fit_resample(X_num, y)
+```
+
+Like Tomek Links, is a deletion technique, where the procedure only removes noisy and ambiguous points along the class boundary, so no transformation resulted here.
+
+### One-Sided Selection
+
+OSS combines Tomek Links and CNN, the first used to remove noisy examples, and the last to remove redundant examples [[4]](https://machinelearningmastery.com/data-sampling-methods-for-imbalanced-classification/).
+
+PS: OSS demands **numerical data!**
+
+```javascript
+rom imblearn.under_sampling import OneSidedSelection
+
+oss = OneSidedSelection(sampling_strategy='majority', n_neighbors=3, random_state=42)
+X_oss, y_oss = oss.fit_resample(X_num, y)
+```
+
+Since it's a combination from the above mentioned techniques, the number of samples here remains the same.
+
+### Neighborhood Cleaning Rule
+
+In NCR, for each instance a in the dataset, its three nearest neighbors are computed. If a is a majority class instance and is misclassified by its three nearest neighbors, then a is removed from the dataset. Alternatively, if a is a minority class instance and is misclassified by its three nearest neighbors, then the majority class instances among a’s neighbors are removed [[1]](https://www.wiley.com/en-us/Imbalanced+Learning%3A+Foundations%2C+Algorithms%2C+and+Applications-p-9781118074626).
+
+PS: NCR needs **numerical data!**
+
+```javascript
+from imblearn.under_sampling import NeighbourhoodCleaningRule
+
+ncr = NeighbourhoodCleaningRule()
+X_ncr, y_ncr = ncr.fit_resample(X_num, y)
+```
+
+NCR decreased the number os samples from 989 to 831, with 137 survivals and 694 deaths. Ahead we see again the new "Age" distribution:
+
+![ncr](https://user-images.githubusercontent.com/63553829/93007239-0a218300-f53d-11ea-8a76-f403f7d3200d.png){: .mx-auto.d-block :}
 
 
 
