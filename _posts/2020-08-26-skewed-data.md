@@ -211,20 +211,21 @@ The Box-Cox procedure uses *maximum likelihood estimation* to estimate a transfo
 ```javascript
 from scipy.stats import boxcox as bc
 
-bc_df = df.replace(0, np.nan).dropna(axis=1) # only values > 0
+bc_df = df[['budget','duration','aspect_ratio','gross']].replace(0, np.nan).dropna(axis=1) # only values > 0
 skew_bc = pd.DataFrame(bc_df.skew(), columns=['skewness'])
 
+boxcox_labels = bc_df.columns.tolist()
 boxcox = []
-for i in range(0, bc_df.shape[1]): 
-    boxcox.append(bc(bc_df.iloc[:,i])[1])
+for label in boxcox_labels:
+    boxcox.append(bc(bc_df[label])[0].mean())
 
 skew_bc['box-cox'] = boxcox
 skew_bc
 ```
 
-As we can see, skewness reduced a lot for most of the predictors. However, some variables cannot be transformed to normal distributed-like, for several different reasons (e.g. imbalanced categorical classes).
+Skewness reduced for some predictors, and increased for others. However, some variables cannot be transformed to normal distributed-like, for several different reasons (e.g. imbalanced categorical classes).
 
-![bc](https://user-images.githubusercontent.com/63553829/91365396-58155780-e7d7-11ea-97fb-15b77a9b2dbc.png){: .mx-auto.d-block :}
+![bc_](https://user-images.githubusercontent.com/63553829/94747986-9c57c280-0356-11eb-9f76-5ce9a9a178b7.png){: .mx-auto.d-block :}
 
 {: .box-error} 
 Box-Cox procedure can only be applied to data that is **strictly positive**.
@@ -233,7 +234,7 @@ To overcome this issue, the Yeo-Johnson procedure is addressed next.
 
 Just for a comparison, here's a plot with the histograms presented in the beginning:
 
-![bcimg](https://user-images.githubusercontent.com/63553829/91436330-474bfc80-e83e-11ea-80b2-7b79fa525c16.png){: .mx-auto.d-block :}
+![bc_img](https://user-images.githubusercontent.com/63553829/94748281-518a7a80-0357-11eb-966a-fc8ffaae0244.png){: .mx-auto.d-block :}
 
 
 ### 8. Yeo-Johnson transformation
@@ -244,30 +245,33 @@ Yeo-Johnson transformation comes to **address the non-zero and non-negative valu
 ```javascript
 from scipy.stats import yeojohnson as yeo
 
-skew_yeo = pd.DataFrame(df.skew(), columns=['skewness'])
+yeo_df = df[['budget','duration','aspect_ratio','gross']].replace(0, np.nan).dropna(axis=1) # only values > 0
+skew_yeo = pd.DataFrame(yeo_df.skew(), columns=['skewness'])
 
-yeo_johnson = []
-for i in range(0, df.shape[1]): 
-    yeo_johnson.append(yeo(df.iloc[:,i])[1])
+yeo_labels = yeo_df.columns.tolist()
+yj = []
+for label in yeo_labels:
+    yj.append(yeo(yeo_df[label])[0].mean())
 
-skew_yeo['yeo-johnson'] = yeo_johnson
+skew_yeo['yeo-johnson'] = yj
 skew_yeo
 ```
 
 Here, the results were *similar* to the Box-Cox transformation. Nevertheless, Yeo-Johnson transformation has the big advantage of approach all possible values, in contrast to Box-Cox.
 
-![yeo](https://user-images.githubusercontent.com/63553829/91365602-e8ec3300-e7d7-11ea-9733-eedec1690f03.png){: .mx-auto.d-block :}
+![yeo_](https://user-images.githubusercontent.com/63553829/94748327-6b2bc200-0357-11eb-980b-2fc2a9428413.png){: .mx-auto.d-block :}
 
 Again for a comparison, here's a plot with the histograms presented in the beginning:
 
-![yeofig](https://user-images.githubusercontent.com/63553829/91436413-6ea2c980-e83e-11ea-8663-e91b6ff82b8a.png){: .mx-auto.d-block :}
+![yeo_img](https://user-images.githubusercontent.com/63553829/94748387-92828f00-0357-11eb-8b49-f5187a1b9168.png){: .mx-auto.d-block :}
 
 
 ### Highlights
-As we can see, for most of the cases the transformations had a fine result, with Yeo-Johnson transformation being slightly better than Box-Cox for the same keys. It's important to notice that **both transformations are unsupervised**, and while a transformation might **improve** the distribution, it has **no guarantee** that will **improve the model**.
+Again, for some cases the transformations had a fine result, with Yeo-Johnson transformation being slightly better than Box-Cox for the same keys. It's important to notice that **both transformations are unsupervised**, and while a transformation might **improve** the distribution, it has **no guarantee** that will **improve the model**.
 
 ```javascript
 comparison = skew_bc.reset_index().merge(skew_yeo, how='left').set_index('index')
 ```
 
-![comp](https://user-images.githubusercontent.com/63553829/91365767-4c766080-e7d8-11ea-8af7-7d157c7b093d.png)
+![comp2](https://user-images.githubusercontent.com/63553829/94748506-da091b00-0357-11eb-972d-d22ab6183b4f.png){. :mx-auto.d-block :}
+
