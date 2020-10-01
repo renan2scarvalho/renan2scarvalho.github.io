@@ -217,15 +217,15 @@ skew_bc = pd.DataFrame(bc_df.skew(), columns=['skewness'])
 boxcox_labels = bc_df.columns.tolist()
 boxcox = []
 for label in boxcox_labels:
-    boxcox.append(bc(bc_df[label])[0].mean())
+    boxcox.append(skew(bc(bc_df[label])[0]))
 
 skew_bc['box-cox'] = boxcox
 skew_bc
 ```
 
-Skewness reduced for some predictors, and increased for others. However, some variables cannot be transformed to normal distributed-like, for several different reasons (e.g. imbalanced categorical classes).
+Skewness reduced for most the predictors (resulted in *NaN* for *title_year* due to large values in comparison to other predictores - see image below). However, some variables cannot be transformed to normal distributed-like, for several different reasons (e.g. imbalanced categorical classes).
 
-![bc_](https://user-images.githubusercontent.com/63553829/94747986-9c57c280-0356-11eb-9f76-5ce9a9a178b7.png){: .mx-auto.d-block :}
+![bc_](https://user-images.githubusercontent.com/63553829/94801906-1c187800-03bd-11eb-9086-260f6b79c7d4.png){: .mx-auto.d-block :}
 
 {: .box-error} 
 Box-Cox procedure can only be applied to data that is **strictly positive**.
@@ -234,7 +234,7 @@ To overcome this issue, the Yeo-Johnson procedure is addressed next.
 
 Just for a comparison, here's a plot with the histograms presented in the beginning:
 
-![bc_img](https://user-images.githubusercontent.com/63553829/94748281-518a7a80-0357-11eb-966a-fc8ffaae0244.png){: .mx-auto.d-block :}
+![bc_img](https://user-images.githubusercontent.com/63553829/94802198-9b0db080-03bd-11eb-9bbb-df27e005b1ed.png){: .mx-auto.d-block :}
 
 
 ### 8. Yeo-Johnson transformation
@@ -251,19 +251,19 @@ skew_yeo = pd.DataFrame(yeo_df.skew(), columns=['skewness'])
 yeo_labels = yeo_df.columns.tolist()
 yj = []
 for label in yeo_labels:
-    yj.append(yeo(yeo_df[label])[0].mean())
+    yj.append(skew(yeo(yeo_df[label])[0]))
 
 skew_yeo['yeo-johnson'] = yj
 skew_yeo
 ```
 
-Here, the results were *similar* to the Box-Cox transformation. Nevertheless, Yeo-Johnson transformation has the big advantage of approach all possible values, in contrast to Box-Cox.
+Here, the results were *similar* to the Box-Cox transformation, even for *title_year*. Nevertheless, Yeo-Johnson transformation has the big advantage of approach all possible values, in contrast to Box-Cox.
 
-![yeo_](https://user-images.githubusercontent.com/63553829/94748327-6b2bc200-0357-11eb-980b-2fc2a9428413.png){: .mx-auto.d-block :}
+![yj_](https://user-images.githubusercontent.com/63553829/94802598-559db300-03be-11eb-8296-f77741f4a109.png){: .mx-auto.d-block :}
 
 Again for a comparison, here's a plot with the histograms presented in the beginning:
 
-![yeo_img](https://user-images.githubusercontent.com/63553829/94748387-92828f00-0357-11eb-8b49-f5187a1b9168.png){: .mx-auto.d-block :}
+![yj_img](https://user-images.githubusercontent.com/63553829/94802678-7bc35300-03be-11eb-9f79-f12bac57a212.png){: .mx-auto.d-block :}
 
 
 ### Highlights
@@ -273,5 +273,5 @@ Again, for some cases the transformations had a fine result, with Yeo-Johnson tr
 comparison = skew_bc.reset_index().merge(skew_yeo, how='left').set_index('index')
 ```
 
-![comp2](https://user-images.githubusercontent.com/63553829/94748506-da091b00-0357-11eb-972d-d22ab6183b4f.png){. :mx-auto.d-block :}
+![comp_](https://user-images.githubusercontent.com/63553829/94802743-91387d00-03be-11eb-8dbb-b6351b7c1ea7.png){. :mx-auto.d-block :}
 
