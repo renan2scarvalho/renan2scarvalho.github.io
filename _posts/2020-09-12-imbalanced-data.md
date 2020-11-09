@@ -174,7 +174,7 @@ PS: ADASYN also works only with **numerical data**.
 from imblearn.over_sampling import ADASYN
 
 adasyn = ADASYN(random_state=42)
-X_adasyn, y_adasyn = smote.fit_resample(X_num, y)
+X_adasyn, y_adasyn = adasyn.fit_resample(X_num, y)
 ```
 
 ADASYN increased the number os samples from 989 to 1704, with 852 survivals and 852 deaths. Ahead we see again the new "Age" distribution, similar to SMOTE, with median (44 to 39.5) and mean (44.5 to 37):
