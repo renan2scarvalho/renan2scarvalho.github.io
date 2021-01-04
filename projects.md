@@ -6,7 +6,7 @@ substitle: Github Data Science Projects Portfolio
 # Overview
 ___
 This page contains some personal projects developed in order to study/comprehend data science concepts. The Github repository can be found [[here]](https://github.com/renan2scarvalho/Projetos)
-
+___
 
 ### Customer Analytics
 
