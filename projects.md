@@ -1,23 +1,18 @@
 ---
 title: Projects
-substitle: 
+substitle: Github Data Science Projects Portfolio
 ---
 
-# Master's Dissertation
-
-**Modeling and simulation of a solar cavity receiver for low latitudes**\
-*University of São Paulo (USP)* - Brazil\
-*Institute of Energy and Environment (IEE)*\
-[PDF](https://www.teses.usp.br/teses/disponiveis/106/106134/tde-30062020-150746/publico/RenanDissertacao.pdf)
+# Overview
+___
+This page contains some personal projects developed in order to study/comprehend data science concepts. The Github repository can be found [[here]](https://github.com/renan2scarvalho/Projetos)
 
 
-# Publications
+### Customer Analytics
 
-**Transient Simulation of a Solar Cavity Receiver for Application in a Low-Latitude Field**\
-*International Solar Energy Society Solar World Congress (2019)*\
-[PDF](http://proceedings.ises.org/paper/swc2019/swc2019-0097-Carvalho.pdf)
+Outcome of the Udemy Course Customer Analytics for Business from The Click Reader. The course aimed to work with a transactional customer data, analysis on data to find insights for acquiring, retaining, and growing your customer base. Can be found [[here]](https://github.com/renan2scarvalho/Projetos/tree/main/Customer%20Analytics)
 
+### Churn Analysis 
 
-**A INFLUÊNCIA DE POLÍTICAS PÚBLICAS EM MÉTRICAS ECONÔMICAS DE UM SISTEMA DE CALHAS PARABÓLICAS**\
-*VII Brazilian Solar Energy Congress (2018)*\
-[PDF](https://anaiscbens.emnuvens.com.br/cbens/article/view/489/489) - in Portuguese
+Classified churn customers, and estimate expected profit value applying a cost-benefit matrix for customer retention as a marketing approach. The project can be found [[here]](https://github.com/renan2scarvalho/Projetos/tree/main/An%C3%A1lise%20de%20Churn), and the content is in Portuguese.
+
