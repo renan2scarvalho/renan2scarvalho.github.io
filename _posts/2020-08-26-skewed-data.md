@@ -273,5 +273,5 @@ Again, for some cases the transformations had a fine result, with Yeo-Johnson tr
 comparison = skew_bc.reset_index().merge(skew_yeo, how='left').set_index('index')
 ```
 
-![comp_](https://user-images.githubusercontent.com/63553829/94802743-91387d00-03be-11eb-8dbb-b6351b7c1ea7.png){. :mx-auto.d-block :}
+![comp_](https://user-images.githubusercontent.com/63553829/94802743-91387d00-03be-11eb-8dbb-b6351b7c1ea7.png){: .mx-auto.d-block :}
 
